@@ -71,6 +71,7 @@ sfx_plus_button = Button(settings.SCREEN_WIDTH/2 + settings.MENU_ASSETS['buttons
 left_button = Button(settings.SCREEN_WIDTH/2 - settings.MENU_ASSETS['buttons']['button'].get_width()/2, (settings.SCREEN_HEIGHT / 2 - settings.MENU_ASSETS['buttons']['button'].get_height() * 9 / 4), settings.MENU_ASSETS['buttons']['button'], settings)
 right_button = Button(settings.SCREEN_WIDTH/2 - settings.MENU_ASSETS['buttons']['button'].get_width()/2, (settings.SCREEN_HEIGHT / 2 - settings.MENU_ASSETS['buttons']['button'].get_height()), settings.MENU_ASSETS['buttons']['button'], settings)
 jump_button = Button(settings.SCREEN_WIDTH/2 - settings.MENU_ASSETS['buttons']['button'].get_width()/2, (settings.SCREEN_HEIGHT /2 + settings.MENU_ASSETS['buttons']['button'].get_height()/4), settings.MENU_ASSETS['buttons']['button'], settings)
+
 # ------ MAIN MENU ------
 
 settings.RUNNING = True
@@ -80,6 +81,8 @@ waiting_for = ""
 
 while settings.RUNNING:
 
+    settings.EVENTS = pygame.event.get()
+    
     if (settings.MUSIC_MUTED):
         pygame.mixer.music.set_volume(0)
     else:
@@ -87,14 +90,8 @@ while settings.RUNNING:
 
 
     if not (settings.GAME_PAUSED):
-        if settings.FINISHED:
-            settings.FINISHED = False
-            level = Level(settings)
 
-        pygame.mixer.music.unpause()
-        level.draw()
-
-        for event in pygame.event.get():
+        for event in settings.EVENTS:
             if event.type == pygame.QUIT:
                 settings.RUNNING = False
             if event.type == pygame.KEYDOWN:
@@ -104,7 +101,60 @@ while settings.RUNNING:
                     settings.MENU_CD = pygame.time.get_ticks()
                     settings.GAME_PAUSED = True
 
+        if settings.FINISHED:
+            settings.FINISHED = False
+            level = Level(settings)
+
+        pygame.mixer.music.unpause()
+        level.draw()
+
+
     elif (settings.GAME_PAUSED):
+
+        for event in settings.EVENTS:
+            if event.type == pygame.QUIT:
+                settings.RUNNING = False
+            if settings.MENU_STATE == "main":
+                if event.type == pygame_gui.UI_TEXT_ENTRY_CHANGED and event.ui_object_id == "#name_input_field" and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
+                    settings.PLAYER_NAME = event.text
+                NAME_INPUT.process_events(event)
+            if settings.MENU_STATE == "keybinds" and waiting_input:
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        if waiting_for == "left":
+                            left_button.image = settings.MENU_ASSETS["buttons"]["button"]
+                        if waiting_for == "right":
+                            right_button.image = settings.MENU_ASSETS["buttons"]["button"]
+                        if waiting_for == "jump":
+                            jump_button.image = settings.MENU_ASSETS["buttons"]["button"]
+                        waiting_for = ""
+                        waiting_input = False
+                    elif event.key not in [settings.KEYBINDS['left'], settings.KEYBINDS['right'], settings.KEYBINDS['jump']]:
+                        if waiting_for == "left":
+                            save_settings({
+                                'left' : event.key,
+                                'right': settings.KEYBINDS['right'],
+                                'jump': settings.KEYBINDS['jump']
+                            })
+                            left_button.image = settings.MENU_ASSETS["buttons"]["button"]
+                        elif waiting_for == "right":
+                            save_settings({
+                                'left' : settings.KEYBINDS['left'],
+                                'right': event.key,
+                                'jump': settings.KEYBINDS['jump']
+                            })
+                            right_button.image = settings.MENU_ASSETS["buttons"]["button"]
+                        elif waiting_for == "jump":
+                            save_settings({
+                                'left' : settings.KEYBINDS['left'],
+                                'right': settings.KEYBINDS['right'],
+                                'jump': event.key
+                            })
+                            jump_button.image = settings.MENU_ASSETS["buttons"]["button"]
+
+                        set_keybinds(settings)
+                        waiting_input = False
+                        waiting_for = ""
 
         background_image = pygame.image.load('./assets/menu/bg/bg.png').convert_alpha()
         background_image = pygame.transform.scale(background_image, (settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
@@ -232,44 +282,7 @@ while settings.RUNNING:
 
         if (settings.MENU_STATE == "keybinds"):
             print("keybinds menu", settings.GAME_PAUSED, settings.RUNNING)
-            if waiting_input:
-                for event in pygame.event.get():
-                        if event.type == pygame.KEYDOWN:
-                            if event.key == pygame.K_ESCAPE:
-                                if waiting_for == "left":
-                                    left_button.image = settings.MENU_ASSETS["buttons"]["button"]
-                                if waiting_for == "right":
-                                    right_button.image = settings.MENU_ASSETS["buttons"]["button"]
-                                if waiting_for == "jump":
-                                    jump_button.image = settings.MENU_ASSETS["buttons"]["button"]
-                                waiting_for = ""
-                                waiting_input = False
-                            elif event.key not in [settings.KEYBINDS['left'], settings.KEYBINDS['right'], settings.KEYBINDS['jump']]:
-                                if waiting_for == "left":
-                                    save_settings({
-                                        'left' : event.key,
-                                        'right': settings.KEYBINDS['right'],
-                                        'jump': settings.KEYBINDS['jump']
-                                    })
-                                    left_button.image = settings.MENU_ASSETS["buttons"]["button"]
-                                elif waiting_for == "right":
-                                    save_settings({
-                                        'left' : settings.KEYBINDS['left'],
-                                        'right': event.key,
-                                        'jump': settings.KEYBINDS['jump']
-                                    })
-                                    right_button.image = settings.MENU_ASSETS["buttons"]["button"]
-                                elif waiting_for == "jump":
-                                    save_settings({
-                                        'left' : settings.KEYBINDS['left'],
-                                        'right': settings.KEYBINDS['right'],
-                                        'jump': event.key
-                                    })
-                                    jump_button.image = settings.MENU_ASSETS["buttons"]["button"]
-
-                                set_keybinds(settings)
-                                waiting_input = False
-                                waiting_for = ""         
+         
 
             if left_button.draw(SCREEN) and not waiting_input and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
 
@@ -301,13 +314,6 @@ while settings.RUNNING:
                 settings.MENU_CD = pygame.time.get_ticks()
                 continue
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                settings.RUNNING = False
-            if settings.MENU_STATE == "main":
-                if event.type == pygame_gui.UI_TEXT_ENTRY_CHANGED and event.ui_object_id == "#name_input_field" and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
-                    settings.PLAYER_NAME = event.text
-                NAME_INPUT.process_events(event)
     else:
         continue
 

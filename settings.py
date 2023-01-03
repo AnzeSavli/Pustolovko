@@ -68,6 +68,7 @@ class Settings():
         self.RUNNING = True
         self.MENU_BUTTON_PRESSED = 0
         self.KEYBINDS = dict()
+        self.EVENTS = None
         
 
         # ------ FONTS & COLORS ------
