@@ -25,6 +25,7 @@ class Player(pygame.sprite.Sprite):
         self.jump_amounts = self.max_jumps
         self.jump_on_cooldown =  False
         self.health = 3
+        self.walking_timer = 0
 
         self.collision_sprites = collision_sprites
 
@@ -32,24 +33,26 @@ class Player(pygame.sprite.Sprite):
         keys = pygame.key.get_pressed()
 
 
-        if keys[pygame.K_RIGHT]:
+        if keys[self.settings.KEYBINDS['right']]:
             self.direction.x = 1
             self.last_direction = 'right'
-        elif keys[pygame.K_LEFT]:
+        elif keys[self.settings.KEYBINDS['left']]:
             self.direction.x = -1
             self.last_direction = 'left'
         else:
             self.direction.x = 0
-        if keys[pygame.K_UP] and self.jump_amounts > 0 and not self.jump_on_cooldown:
+        if keys[self.settings.KEYBINDS['jump']] and self.jump_amounts > 0 and not self.jump_on_cooldown:
+            if not(self.settings.SFX_MUTED):
+                    self.settings.SFX['jump2'].set_volume(int(self.settings.SFX_VOLUME) / 100)
+                    self.settings.SFX['jump2'].play()
             self.jump()
             self.jump_on_cooldown = True
         
-        if not keys[pygame.K_UP]:
+        if not keys[self.settings.KEYBINDS['jump']]:
             self.jump_on_cooldown = False
 
 
     def get_state(self):
-
         if self.in_water:
             self.state = 'swim'
         elif self.direction.y < 0:
@@ -62,6 +65,7 @@ class Player(pygame.sprite.Sprite):
             self.state = 'run'
         else:
             self.state = 'stand'
+        
 
     def show_animations(self):
         animation = self.animations[self.state]
@@ -113,8 +117,8 @@ class Player(pygame.sprite.Sprite):
 
     def player_died(self):
         if self.health == 0:
-            pygame.quit()
-            sys.exit()
+            self.settings.GAME_PAUSED = True
+            self.settings.MENU_STATE = "main"
 
     def  map_limits(self):
         if (self.rect.y > self.settings.LEVEL_HEIGHT + 4*self.settings.TILE_SIZE):

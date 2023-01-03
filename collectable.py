@@ -21,6 +21,9 @@ class Coin(Collectable):
 
     def update(self, player):
         if self.collision_rect.colliderect(player.rect):
+            if not(self.settings.SFX_MUTED):
+                    self.settings.SFX['pickup'].set_volume(int(self.settings.SFX_VOLUME) / 100)
+                    self.settings.SFX['pickup'].play()   
             self.kill()
 
 class Boost(Collectable):
@@ -31,15 +34,22 @@ class Boost(Collectable):
 
     def update(self, player):
         if self.collision_rect.colliderect(player.rect):
+            if not(self.settings.SFX_MUTED):
+                    self.settings.SFX['pickup'].set_volume(int(self.settings.SFX_VOLUME) / 100)
+                    self.settings.SFX['pickup'].play()
             player.jump_boosted = True
             self.kill()
 
 class Key(Collectable):
     def __init__(self, pos, size, groups,theme, type, settings):
         super().__init__(pos, size, groups, theme, type, settings)
+        self.key_color = type.split("_")[1]
         self.collision_rect = self.rect.copy()
         self.collision_rect.update((self.collision_rect.left + (self.size[0] / 3)), (self.collision_rect.top + (self.size[1] / 3)), (self.size[0] / 3), (self.size[1] / 3))
 
     def update(self, player):
         if self.collision_rect.colliderect(player.rect):
+            if not(self.settings.SFX_MUTED):
+                    self.settings.SFX['pickup'].set_volume(int(self.settings.SFX_VOLUME) / 100)
+                    self.settings.SFX['pickup'].play()
             self.kill()

@@ -50,8 +50,6 @@ class Finish(Tile):
                 text = "%02.0f:%02.0f:%02.0f" % (int(minutes), int(seconds), int(milis))
                 print(text)
 
-                pygame.quit()
-                sys.exit()
-        pass
+                self.settings.FINISHED = True
 
 

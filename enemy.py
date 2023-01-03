@@ -17,7 +17,7 @@ class Enemy(pygame.sprite.Sprite):
         self.orientation = 'left'
         self.image = pygame.transform.scale(self.animations[self.type][self.animation_frame], (self.size))
         self.direction = pygame.math.Vector2(-1,0)
-        self.speed = 2
+        self.speed = 4
         self.rect = self.image.get_rect(topleft= pos)
 
 class Barrier(pygame.sprite.Sprite):
@@ -38,7 +38,7 @@ class Bullet(pygame.sprite.Sprite):
         self.collision_blocks = collidables
         super().__init__(groups)
         self.animations = self.settings.ASSETS['enemies']
-        self.image = pygame.transform.scale(self.animations[self.type][2], (self.size))
+        self.image = pygame.transform.scale(self.animations[self.type][3], (self.size))
         self.direction = pygame.math.Vector2(0, 1)
         self.speed = 3
         self.rect = self.image.get_rect(topleft=pos)
@@ -76,58 +76,82 @@ class Bat(Enemy):
     def check_player_distance(self, player): 
         return math.hypot(self.rect.x - player.rect.x, self.rect.y - player.rect.y)
 
+    def collide_player(self, player):
+        if pygame.sprite.collide_mask(self, player):
+            if not(self.settings.SFX_MUTED):
+                    self.settings.SFX['hit'].set_volume(int(self.settings.SFX_VOLUME) / 100)
+                    self.settings.SFX['hit'].play()
+            self.state = 'dying'
 
     def spawn_bullets(self,player):
         dist = self.check_player_distance(player)
         if dist <= 1000 and dist > 600:
-            if random.randint(0, 250) == 5:
+            if random.randint(0, 200) == 5:
                 Bullet((self.rect.x + self.rect.width / 2, self.rect.y + self.rect.height), (self.settings.TILE_SIZE / 4, self.settings.TILE_SIZE * 3/ 4), self.all_groups, 'bat', self.collidables, self.settings)
         if dist <= 600 and dist > 300:
-            if random.randint(0, 100) == 5:
+            if random.randint(0, 800) == 5:
                 Bullet((self.rect.x + self.rect.width / 2, self.rect.y + self.rect.height), (self.settings.TILE_SIZE / 4, self.settings.TILE_SIZE * 3/ 4), self.all_groups, 'bat', self.collidables, self.settings)
         if dist <= 300:
-            if random.randint(0, 60) == 5:
+            if random.randint(0, 50) == 5:
                 Bullet((self.rect.x + self.rect.width / 2, self.rect.y + self.rect.height), (self.settings.TILE_SIZE / 4, self.settings.TILE_SIZE * 3/ 4), self.all_groups, 'bat', self.collidables, self.settings)
 
+    def map_collision(self):
+        for tile in self.collidables.sprites():
+            if tile.rect.colliderect(self.rect):
+                self.kill()
 
     def movement(self):
-        for tile in self.barriers.sprites():
-            if tile.rect.colliderect(self.rect):
-                if self.direction.x > 0:
-                    if tile.side == 'left':
-                        self.orientation = 'right'
-                        self.direction.x = 1
-                    else:
-                        self.orientation = "left"
-                        self.direction.x = -1
-                elif self.direction.x < 0:
-                    if tile.side == 'right':
-                        self.orientation = 'left'
-                        self.direction.x = -1
-                    else:
-                        self.orientation = "right"
-                        self.direction.x = 1
+        if self.state == 'normal':
+            for tile in self.barriers.sprites():
+                if tile.rect.colliderect(self.rect):
+                    if self.direction.x > 0:
+                        if tile.side == 'left':
+                            self.orientation = 'right'
+                            self.direction.x = 1
+                        else:
+                            self.orientation = "left"
+                            self.direction.x = -1
+                    elif self.direction.x < 0:
+                        if tile.side == 'right':
+                            self.orientation = 'left'
+                            self.direction.x = -1
+                        else:
+                            self.orientation = "right"
+                            self.direction.x = 1
 
-        if self.orientation == "left":
-            self.direction.x = -1
-        elif self.orientation == "right":
-            self.direction.x = 1
+            if self.orientation == "left":
+                self.direction.x = -1
+            elif self.orientation == "right":
+                self.direction.x = 1
+        elif self.state == 'dying':
+            self.direction.x = 0
+            self.direction.y = 1
 
     def image_handler(self):
-        self.animation_frame += self.animation_speed
-        if self.animation_frame >= self.animation_frames:
-            self.animation_frame = 0
-        if self.orientation == 'left':
-            self.image = pygame.transform.scale(self.animations[self.type][int(self.animation_frame)], (self.size))
-        elif self.orientation == 'right':
-            self.image = pygame.transform.flip(pygame.transform.scale(self.animations[self.type][int(self.animation_frame)], (self.size)), True, False)
-
-
+        if self.state == 'normal':
+            self.animation_frame += self.animation_speed
+            if self.animation_frame >= self.animation_frames:
+                self.animation_frame = 0
+            if self.orientation == 'left':
+                self.image = pygame.transform.scale(self.animations[self.type][int(self.animation_frame)], (self.size))
+            elif self.orientation == 'right':
+                self.image = pygame.transform.flip(pygame.transform.scale(self.animations[self.type][int(self.animation_frame)], (self.size)), True, False)
+        elif self.state == 'dying':
+            self.animation_frame = 2
+            if self.orientation == 'left':
+                self.image = pygame.transform.flip(pygame.transform.scale(self.animations[self.type][int(self.animation_frame)], (self.size)), False, True)
+            elif self.orientation == 'right':
+                self.image = pygame.transform.flip(pygame.transform.scale(self.animations[self.type][int(self.animation_frame)], (self.size)), True, True)
 
     def update(self, player):
         self.rect.x += self.direction.x * self.speed
-        self.spawn_bullets(player)
-        self.movement()
+        self.rect.y += self.direction.y * self.speed
+        if self.state == 'normal':
+            self.collide_player(player)
+            self.spawn_bullets(player)
+            self.movement()
+        elif self.state == 'dying':
+            self.map_collision()
         self.image_handler()
 
 
