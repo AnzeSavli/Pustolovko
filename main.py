@@ -79,19 +79,39 @@ waiting_input = False
 waiting_for = ""
 
 while settings.RUNNING:
+
     if (settings.MUSIC_MUTED):
         pygame.mixer.music.set_volume(0)
     else:
         pygame.mixer.music.set_volume(int(settings.MUSIC_VOLUME) / 100)
 
-    if (settings.GAME_PAUSED):
+
+    if not (settings.GAME_PAUSED):
+        if settings.FINISHED:
+            settings.FINISHED = False
+            level = Level(settings)
+
+        pygame.mixer.music.unpause()
+        level.draw()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                settings.RUNNING = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    settings.MENU_STATE = 'pause'
+                    pause_start = pygame.time.get_ticks()
+                    settings.MENU_CD = pygame.time.get_ticks()
+                    settings.GAME_PAUSED = True
+
+    elif (settings.GAME_PAUSED):
 
         background_image = pygame.image.load('./assets/menu/bg/bg.png').convert_alpha()
         background_image = pygame.transform.scale(background_image, (settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
         SCREEN.blit(background_image, (0,0))
 
         if (settings.MENU_STATE == 'main'):
-            # print("main menu", settings.GAME_PAUSED, settings.RUNNING)
+            print("main menu", settings.GAME_PAUSED, settings.RUNNING)
             NAME_INPUT.update(GAME_CLOCK.tick(60) / 300)
             NAME_INPUT.draw_ui(SCREEN)
 
@@ -108,6 +128,7 @@ while settings.RUNNING:
                 pass
 
             if main_settings_button.draw(SCREEN) and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
+                settings.SFX['click'].play()
                 settings.PREVIOUS_MENU = "main"
                 settings.MENU_STATE = "settings"
                 settings.MENU_CD = pygame.time.get_ticks()
@@ -118,7 +139,7 @@ while settings.RUNNING:
                 continue
 
         if (settings.MENU_STATE == 'pause'):
-            # print("pause menu", settings.GAME_PAUSED, settings.RUNNING)
+            print("pause menu", settings.GAME_PAUSED, settings.RUNNING)
             pygame.mixer.music.pause()
             title_image = pygame.image.load('./assets/menu/title/title.png').convert_alpha()
             SCREEN.blit(title_image, ((settings.SCREEN_WIDTH/2 - title_image.get_width()/2),(settings.SCREEN_HEIGHT/4 - title_image.get_height() * 3 / 4)))
@@ -141,7 +162,7 @@ while settings.RUNNING:
                 continue
 
         if (settings.MENU_STATE == "settings"):
-            # print("settings menu", settings.GAME_PAUSED, settings.RUNNING)
+            print("settings menu", settings.GAME_PAUSED, settings.RUNNING)
             pygame.mixer.music.pause()
 
             title_image = pygame.image.load('./assets/menu/title/title.png').convert_alpha()
@@ -158,12 +179,13 @@ while settings.RUNNING:
                 continue
 
             if back_button.draw(SCREEN) and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
+                settings.SFX['click'].play()
                 settings.MENU_STATE = settings.PREVIOUS_MENU
                 settings.MENU_CD = pygame.time.get_ticks()
                 continue
 
         if (settings.MENU_STATE == "audio"):
-            # print("audio menu", settings.GAME_PAUSED, settings.RUNNING)
+            print("audio menu", settings.GAME_PAUSED, settings.RUNNING)
             background_image = pygame.image.load('./assets/menu/bg/bg.png').convert_alpha()
             background_image = pygame.transform.scale(background_image, (settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
             SCREEN.blit(background_image, (0,0))
@@ -209,7 +231,7 @@ while settings.RUNNING:
                 continue
 
         if (settings.MENU_STATE == "keybinds"):
-            # print("keybinds menu", settings.GAME_PAUSED, settings.RUNNING)
+            print("keybinds menu", settings.GAME_PAUSED, settings.RUNNING)
             if waiting_input:
                 for event in pygame.event.get():
                         if event.type == pygame.KEYDOWN:
@@ -286,26 +308,8 @@ while settings.RUNNING:
                 if event.type == pygame_gui.UI_TEXT_ENTRY_CHANGED and event.ui_object_id == "#name_input_field" and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
                     settings.PLAYER_NAME = event.text
                 NAME_INPUT.process_events(event)
-        
     else:
-
-        if settings.FINISHED:
-            settings.FINISHED = False
-            level = Level(settings)
-
-        pygame.mixer.music.unpause()
-        level.draw()
-
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                settings.RUNNING = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    settings.MENU_STATE = 'pause'
-                    pause_start = pygame.time.get_ticks()
-                    settings.MENU_CD = pygame.time.get_ticks()
-                    settings.GAME_PAUSED = True
-
+        continue
 
     pygame.display.update()
     GAME_CLOCK.tick(60)
