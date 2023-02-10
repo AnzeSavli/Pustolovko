@@ -26,7 +26,7 @@ class Level:
         self.interactable_sprites = pygame.sprite.Group()
         self.active_sprites = pygame.sprite.Group() # Sprites that actively change based on other stuff
         self.animated_sprites = pygame.sprite.Group() # Sprites that animate staticly, not dependant on anything #TODO: use it
-        self.theme = 'earth' if self.settings.CURRENT_LEVEL%3 == 1 else 'space' if self.settings.CURRENT_LEVEL%3 == 2 else 'candy'
+        self.theme = 'earth' #if self.settings.CURRENT_LEVEL%3 == 1 else 'space' if self.settings.CURRENT_LEVEL%3 == 2 else 'candy'
         self.setup()
         self.start_time = pygame.time.get_ticks()
         self.pause_time = 0
@@ -41,7 +41,7 @@ class Level:
         for row_i, row in enumerate(levellines):
             for column_i, column in enumerate(row.split(',')):
                 if self.theme == 'earth':
-                    if column == '15': 
+                    if column == '14': 
                         Tile((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE * 2, self.settings.TILE_SIZE), [self.background_decorations], self.theme, "clouds", self.settings)
 
         levelfile.close()
@@ -74,6 +74,10 @@ class Level:
                     self.maxcoins += 1
                 if column == '39':
                     Key((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites, self.collectable_sprites, self.keys], self.theme, "key_green", self.settings)
+                if column == '38':
+                    Key((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites, self.collectable_sprites, self.keys], self.theme, "key_blue", self.settings)
+                if column == '40':
+                    Key((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites, self.collectable_sprites, self.keys], self.theme, "key_red", self.settings)
                 if column == '55':
                     Boost((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites, self.collectable_sprites], self.theme, "star", self.settings)
 
@@ -84,14 +88,15 @@ class Level:
         for row_i, row in enumerate(levellines):
             # print(row)
             for column_i, column in enumerate(row.split(',')):
-                if column == '1':
+                if column == '61':
                     Barrier((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.barriers], 'left', self.settings)
-                if column == '2':
+                if column == '62':
                     Barrier((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.barriers], 'right', self.settings)
                 if column == '285':
                     Ghost((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE * 3 / 4, self.settings.TILE_SIZE), [self.visible_enemies, self.enemies], "ghost", self.barriers, self.settings)
-                    # Slime((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE + self.settings.TILE_SIZE / 2), (self.settings.TILE_SIZE, self.settings.TILE_SIZE / 2), [self.visible_enemies, self.enemies], "slime", self.barriers, self.settings)
-                if column == '8':   
+                if column == '310':
+                    Slime((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE + self.settings.TILE_SIZE / 2), (self.settings.TILE_SIZE, self.settings.TILE_SIZE / 2), [self.visible_enemies, self.enemies], "slime", self.barriers, self.settings)
+                if column == '259':   
                     Bat((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE + self.settings.TILE_SIZE / 2), (self.settings.TILE_SIZE , self.settings.TILE_SIZE * 3 / 5), [self.visible_enemies, self.enemies], "bat", self.barriers, self.collision_sprites, self.settings)
         levelfile.close()
 
@@ -112,7 +117,7 @@ class Level:
                         Tile((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites, self.collision_sprites], self.theme, "dirt", self.settings)
                     if column == '125':
                         Tile((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites, self.collision_sprites], self.theme, "grass", self.settings)
-                    if column == '156':
+                    if column == '156' or column == '155':
                         Water((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites, self.animated_sprites, self.interactable_sprites], self.theme, "water", self.settings)
                     if column == '186':
                         Finish((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites, self.interactable_sprites], self.theme, "finish", self.settings)
@@ -217,7 +222,7 @@ class MainCamera(pygame.sprite.Group):
             self.camera_rect.left - (self.settings.SCREEN_WIDTH / 9),
             self.camera_rect.top - (self.settings.SCREEN_HEIGHT / 4))
         for sprite in self.sprites():
-            if sprite.rect.left + self.settings.TILE_SIZE < (self.camera_rect.left - (self.settings.SCREEN_WIDTH / 9)) or sprite.rect.left > (self.camera_rect.left - (self.settings.SCREEN_WIDTH / 9) + self.settings.SCREEN_WIDTH) or sprite.rect.top < (self.camera_rect.top - (self.settings.SCREEN_HEIGHT / 4)) or sprite.rect.top > (self.camera_rect.top - (self.settings.SCREEN_HEIGHT / 4) + self.settings.SCREEN_HEIGHT):
+            if sprite.rect.left + sprite.rect.width < (self.camera_rect.left - (self.settings.SCREEN_WIDTH / 9)) or sprite.rect.left > (self.camera_rect.left - (self.settings.SCREEN_WIDTH / 9) + self.settings.SCREEN_WIDTH) or sprite.rect.top + sprite.rect.height < (self.camera_rect.top - (self.settings.SCREEN_HEIGHT / 4)) or sprite.rect.top > (self.camera_rect.top - (self.settings.SCREEN_HEIGHT / 4) + self.settings.SCREEN_HEIGHT):
                 continue
             if sprite == player:
                 continue
@@ -265,7 +270,7 @@ class CameraSprites(pygame.sprite.Group):
             self.camera_rect.left - (self.settings.SCREEN_WIDTH / 9),
             self.camera_rect.top - (self.settings.SCREEN_HEIGHT / 4))
         for sprite in self.sprites():
-            if sprite.rect.left + self.settings.TILE_SIZE < (self.camera_rect.left - (self.settings.SCREEN_WIDTH / 9)) or sprite.rect.left > (self.camera_rect.left - (self.settings.SCREEN_WIDTH / 9) + self.settings.SCREEN_WIDTH) or sprite.rect.top < (self.camera_rect.top - (self.settings.SCREEN_HEIGHT / 4)) or sprite.rect.top > (self.camera_rect.top - (self.settings.SCREEN_HEIGHT / 4) + self.settings.SCREEN_HEIGHT):
+            if sprite.rect.left + sprite.rect.width < (self.camera_rect.left - (self.settings.SCREEN_WIDTH / 9)) or sprite.rect.left > (self.camera_rect.left - (self.settings.SCREEN_WIDTH / 9) + self.settings.SCREEN_WIDTH) or sprite.rect.top + sprite.rect.height  < (self.camera_rect.top - (self.settings.SCREEN_HEIGHT / 4)) or sprite.rect.top  > (self.camera_rect.top - (self.settings.SCREEN_HEIGHT / 4) + self.settings.SCREEN_HEIGHT):
                 continue
             self.drawn += 1
             offset_pos = sprite.rect.topleft - self.offset

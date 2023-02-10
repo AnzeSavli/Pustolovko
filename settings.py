@@ -57,7 +57,7 @@ class Settings():
 
         # ------ GAME DATA ------
 
-        self.MAX_LEVEL = 1
+        self.MAX_LEVEL = 3
         self.CURRENT_LEVEL = 1
         self.LEVEL_HEIGHT = 0
         self.FINISHED = False

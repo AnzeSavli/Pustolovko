@@ -80,9 +80,8 @@ waiting_input = False
 waiting_for = ""
 
 while settings.RUNNING:
-
     settings.EVENTS = pygame.event.get()
-    
+
     if (settings.MUSIC_MUTED):
         pygame.mixer.music.set_volume(0)
     else:
@@ -100,13 +99,21 @@ while settings.RUNNING:
                     pause_start = pygame.time.get_ticks()
                     settings.MENU_CD = pygame.time.get_ticks()
                     settings.GAME_PAUSED = True
+                if event.key == pygame.K_SPACE:
+                    settings.SCREEN_WIDTH += 100
+                    pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
 
-        if settings.FINISHED:
-            settings.FINISHED = False
-            level = Level(settings)
+        if not settings.GAME_PAUSED:
+            if settings.FINISHED:
+                if settings.CURRENT_LEVEL == settings.MAX_LEVEL:
+                    settings.CURRENT_LEVEL = 1
+                else:
+                    settings.CURRENT_LEVEL += 1
+                settings.FINISHED = False
+                level = Level(settings)
 
-        pygame.mixer.music.unpause()
-        level.draw()
+            pygame.mixer.music.unpause()
+            level.draw()
 
 
     elif (settings.GAME_PAUSED):
@@ -178,7 +185,7 @@ while settings.RUNNING:
                 pass
 
             if main_settings_button.draw(SCREEN) and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
-                settings.SFX['click'].play()
+                # settings.SFX['click'].play()
                 settings.PREVIOUS_MENU = "main"
                 settings.MENU_STATE = "settings"
                 settings.MENU_CD = pygame.time.get_ticks()
@@ -229,7 +236,7 @@ while settings.RUNNING:
                 continue
 
             if back_button.draw(SCREEN) and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
-                settings.SFX['click'].play()
+                # settings.SFX['click'].play()
                 settings.MENU_STATE = settings.PREVIOUS_MENU
                 settings.MENU_CD = pygame.time.get_ticks()
                 continue
