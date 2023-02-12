@@ -42,7 +42,7 @@ class Level:
             for column_i, column in enumerate(row.split(',')):
                 if self.theme == 'earth':
                     if column == '14': 
-                        Tile((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE * 2, self.settings.TILE_SIZE), [self.background_decorations], self.theme, "clouds", self.settings)
+                        Tile((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * 2 * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.background_decorations], self.theme, "clouds", self.settings)
 
         levelfile.close()
 
@@ -54,13 +54,13 @@ class Level:
             for column_i, column in enumerate(row.split(',')):
                 if self.theme == 'earth':
                     if column == '189':
-                        Tile((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites], self.theme, "sign_right", self.settings)
+                        Tile((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites], self.theme, "sign_right", self.settings)
                     if column == '123':
-                        Tile((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites], self.theme, "fence", self.settings)
+                        Tile((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites], self.theme, "fence", self.settings)
                     if column == '42':
-                        Tile((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites], self.theme, "mushroom_1", self.settings)
+                        Tile((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites], self.theme, "mushroom_1", self.settings)
                     if column == '48':
-                        Tile((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites], self.theme, "plant", self.settings)
+                        Tile((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites], self.theme, "plant", self.settings)
 
         levelfile.close()
 
@@ -70,16 +70,16 @@ class Level:
             # print(row)
             for column_i, column in enumerate(row.split(',')):
                 if column == '18':
-                    Coin((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites, self.collectable_sprites, self.coins], self.theme, "coin", self.settings)
+                    Coin((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites, self.collectable_sprites, self.coins], self.theme, "coin", self.settings)
                     self.maxcoins += 1
                 if column == '39':
-                    Key((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites, self.collectable_sprites, self.keys], self.theme, "key_green", self.settings)
+                    Key((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites, self.collectable_sprites, self.keys], self.theme, "key_green", self.settings)
                 if column == '38':
-                    Key((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites, self.collectable_sprites, self.keys], self.theme, "key_blue", self.settings)
+                    Key((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites, self.collectable_sprites, self.keys], self.theme, "key_blue", self.settings)
                 if column == '40':
-                    Key((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites, self.collectable_sprites, self.keys], self.theme, "key_red", self.settings)
+                    Key((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites, self.collectable_sprites, self.keys], self.theme, "key_red", self.settings)
                 if column == '55':
-                    Boost((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites, self.collectable_sprites], self.theme, "star", self.settings)
+                    Boost((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites, self.collectable_sprites], self.theme, "star", self.settings)
 
         levelfile.close()
 
@@ -89,15 +89,15 @@ class Level:
             # print(row)
             for column_i, column in enumerate(row.split(',')):
                 if column == '61':
-                    Barrier((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.barriers], 'left', self.settings)
+                    Barrier((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.barriers], 'left', self.settings)
                 if column == '62':
-                    Barrier((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.barriers], 'right', self.settings)
+                    Barrier((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.barriers], 'right', self.settings)
                 if column == '285':
-                    Ghost((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE * 3 / 4, self.settings.TILE_SIZE), [self.visible_enemies, self.enemies], "ghost", self.barriers, self.settings)
+                    Ghost((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * 3 / 4 * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_enemies, self.enemies], "ghost", self.barriers, self.settings)
                 if column == '310':
-                    Slime((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE + self.settings.TILE_SIZE / 2), (self.settings.TILE_SIZE, self.settings.TILE_SIZE / 2), [self.visible_enemies, self.enemies], "slime", self.barriers, self.settings)
+                    Slime((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE + self.settings.TILE_SIZE / 2 * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE / 2 * self.settings.Y_SCALE), [self.visible_enemies, self.enemies], "slime", self.barriers, self.settings)
                 if column == '259':   
-                    Bat((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE + self.settings.TILE_SIZE / 2), (self.settings.TILE_SIZE , self.settings.TILE_SIZE * 3 / 5), [self.visible_enemies, self.enemies], "bat", self.barriers, self.collision_sprites, self.settings)
+                    Bat((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE + self.settings.TILE_SIZE / 2 * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * 3 / 5 * self.settings.Y_SCALE), [self.visible_enemies, self.enemies], "bat", self.barriers, self.collision_sprites, self.settings)
         levelfile.close()
 
         levelfile = open('./assets/levels/' + str(self.curr_level) + '/tiles.csv', "r")
@@ -108,21 +108,21 @@ class Level:
             for column_i, column in enumerate(row.split(',')):
                 if self.theme == 'earth':
                     if column == '142':
-                        Tile((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites, self.collision_sprites], self.theme, "grass_left", self.settings)
+                        Tile((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites, self.collision_sprites], self.theme, "grass_left", self.settings)
                     if column == '143':
-                        Tile((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites, self.collision_sprites], self.theme, "grass_middle", self.settings)
+                        Tile((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites, self.collision_sprites], self.theme, "grass_middle", self.settings)
                     if column == '144':
-                        Tile((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites, self.collision_sprites], self.theme, "grass_right", self.settings)
+                        Tile((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites, self.collision_sprites], self.theme, "grass_right", self.settings)
                     if column == '126':
-                        Tile((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites, self.collision_sprites], self.theme, "dirt", self.settings)
+                        Tile((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites, self.collision_sprites], self.theme, "dirt", self.settings)
                     if column == '125':
-                        Tile((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites, self.collision_sprites], self.theme, "grass", self.settings)
+                        Tile((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites, self.collision_sprites], self.theme, "grass", self.settings)
                     if column == '156' or column == '155':
-                        Water((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites, self.animated_sprites, self.interactable_sprites], self.theme, "water", self.settings)
+                        Water((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites, self.animated_sprites, self.interactable_sprites], self.theme, "water", self.settings)
                     if column == '186':
-                        Finish((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites, self.interactable_sprites], self.theme, "finish", self.settings)
+                        Finish((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE), [self.visible_sprites, self.interactable_sprites], self.theme, "finish", self.settings)
                 if column == '0':
-                    self.player = Player((column_i * self.settings.TILE_SIZE, row_i * self.settings.TILE_SIZE), (self.settings.TILE_SIZE, self.settings.TILE_SIZE), [self.visible_sprites,self.active_sprites],self.collision_sprites, self.settings)  
+                    self.player = Player((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites,self.active_sprites],self.collision_sprites, self.settings)  
 
         levelfile.close()
 

@@ -52,8 +52,14 @@ class Settings():
         # ------ SCREEN ------
 
         self.TILE_SIZE = 64
+        self.ORIGINAL_SCREEN_WIDTH = 1200
+        self.ORIGINAL_SCREEN_HEIGHT = 800
         self.SCREEN_WIDTH = 1200
         self.SCREEN_HEIGHT = 800
+
+        self.X_SCALE = 1
+        self.Y_SCALE = 1
+        
 
         # ------ GAME DATA ------
 

@@ -24,7 +24,7 @@ settings = Settings()
 
 # ------ SCREEN ------
 
-SCREEN = pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
+SCREEN = pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT), pygame.RESIZABLE)
 
 pygame.display.set_caption("Pustolovko")
 pygame.display.set_icon(pygame.image.load('./assets/menu/icon/icon.png').convert_alpha())
@@ -99,9 +99,13 @@ while settings.RUNNING:
                     pause_start = pygame.time.get_ticks()
                     settings.MENU_CD = pygame.time.get_ticks()
                     settings.GAME_PAUSED = True
-                if event.key == pygame.K_SPACE:
-                    settings.SCREEN_WIDTH += 100
-                    pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT))
+            if event.type == pygame.VIDEORESIZE:
+                settings.SCREEN_WIDTH = SCREEN.get_width()
+                settings.SCREEN_HEIGHT = SCREEN.get_height()
+                pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT), pygame.RESIZABLE)
+                settings.X_SCALE = settings.SCREEN_WIDTH / settings.ORIGINAL_SCREEN_WIDTH
+                settings.Y_SCALE = settings.SCREEN_HEIGHT / settings.ORIGINAL_SCREEN_HEIGHT
+                level = Level(settings)
 
         if not settings.GAME_PAUSED:
             if settings.FINISHED:
