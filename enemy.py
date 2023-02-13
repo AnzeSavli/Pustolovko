@@ -59,7 +59,7 @@ class Bullet(pygame.sprite.Sprite):
 
 
     def update(self, player):
-        self.rect.y += self.direction.y * self.speed
+        self.rect.y += self.direction.y * self.speed *self.settings.Y_SCALE
         self.player_collision(player)
         self.map_collision()
         self.out_of_bounds()
@@ -85,15 +85,15 @@ class Bat(Enemy):
 
     def spawn_bullets(self,player):
         dist = self.check_player_distance(player)
-        if dist <= 1000 and dist > 600:
+        if dist <= math.ceil(1000 * (self.settings.X_SCALE + self.settings.Y_SCALE) / 2) and dist > math.ceil(600 * (self.settings.X_SCALE + self.settings.Y_SCALE) / 2):
             if random.randint(0, 200) == 5:
-                Bullet((self.rect.x + self.rect.width / 2, self.rect.y + self.rect.height), (self.settings.TILE_SIZE / 4, self.settings.TILE_SIZE * 3/ 4), self.all_groups, 'bat', self.collidables, self.settings)
-        if dist <= 600 and dist > 300:
+                Bullet(((self.rect.x + self.rect.width / 2), (self.rect.y + self.rect.height)), (math.ceil(self.settings.TILE_SIZE / 4 * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * 3/ 4 * self.settings.Y_SCALE)), self.all_groups, 'bat', self.collidables, self.settings)
+        if dist <= math.ceil(600* (self.settings.X_SCALE + self.settings.Y_SCALE) / 2) and dist > math.ceil(300* (self.settings.X_SCALE + self.settings.Y_SCALE) / 2):
             if random.randint(0, 800) == 5:
-                Bullet((self.rect.x + self.rect.width / 2, self.rect.y + self.rect.height), (self.settings.TILE_SIZE / 4, self.settings.TILE_SIZE * 3/ 4), self.all_groups, 'bat', self.collidables, self.settings)
-        if dist <= 300:
+                Bullet(((self.rect.x + self.rect.width / 2),(self.rect.y + self.rect.height)), (math.ceil(self.settings.TILE_SIZE / 4 * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * 3/ 4 * self.settings.Y_SCALE)), self.all_groups, 'bat', self.collidables, self.settings)
+        if dist <= math.ceil(300* (self.settings.X_SCALE + self.settings.Y_SCALE) / 2):
             if random.randint(0, 50) == 5:
-                Bullet((self.rect.x + self.rect.width / 2, self.rect.y + self.rect.height), (self.settings.TILE_SIZE / 4, self.settings.TILE_SIZE * 3/ 4), self.all_groups, 'bat', self.collidables, self.settings)
+                Bullet(((self.rect.x + self.rect.width / 2), (self.rect.y + self.rect.height)), (math.ceil(self.settings.TILE_SIZE / 4 * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * 3/ 4 * self.settings.Y_SCALE)), self.all_groups, 'bat', self.collidables, self.settings)
 
     def map_collision(self):
         for tile in self.collidables.sprites():
@@ -144,8 +144,8 @@ class Bat(Enemy):
                 self.image = pygame.transform.flip(pygame.transform.scale(self.animations[self.type][int(self.animation_frame)], (self.size)), True, True)
 
     def update(self, player):
-        self.rect.x += self.direction.x * self.speed
-        self.rect.y += self.direction.y * self.speed
+        self.rect.x += self.direction.x * self.speed * self.settings.X_SCALE
+        self.rect.y += self.direction.y * self.speed * self.settings.Y_SCALE
         if self.state == 'normal':
             self.collide_player(player)
             self.spawn_bullets(player)
@@ -171,7 +171,7 @@ class Slime(Enemy):
             player.respawn()
 
     def check_player_distance(self, player): 
-        return math.hypot(self.rect.x - player.rect.x, self.rect.y - player.rect.y) < self.detect_range
+        return math.hypot(self.rect.x - player.rect.x, self.rect.y - player.rect.y) < math.ceil(self.detect_range * (self.settings.X_SCALE + self.settings.Y_SCALE) / 2)
 
     def make_invisible(self, player):
         if self.check_player_distance(player):
@@ -227,7 +227,7 @@ class Slime(Enemy):
             self.image = pygame.transform.flip(pygame.transform.scale(self.animations[self.type][int(self.animation_frame)], (self.size)), True, False)
 
     def update(self, player):
-        self.rect.x += self.direction.x * self.speed
+        self.rect.x += self.direction.x * self.speed * self.settings.X_SCALE
         self.movement()
         self.player_collision(player)
         self.make_invisible(player)
@@ -245,7 +245,7 @@ class Ghost(Enemy):
             player.respawn()
 
     def check_player_distance(self, player): 
-        return math.hypot(self.rect.x - player.rect.x, self.rect.y - player.rect.y) < self.detect_range
+        return math.hypot(self.rect.x - player.rect.x, self.rect.y - player.rect.y) < math.ceil(self.detect_range * (self.settings.X_SCALE + self.settings.Y_SCALE) / 2)
 
     def state_handler(self, player):
         self.previous_state = self.state
@@ -267,7 +267,7 @@ class Ghost(Enemy):
                 if self.direction.x > 0:
                     if tile.side == 'left':
                         self.orientation = 'right'
-                        self.direction.x = 1
+                        self.direction.x = 1 
                     else:
                         self.orientation = "left"
                         self.direction.x = -1
@@ -292,8 +292,8 @@ class Ghost(Enemy):
         self.orientation = 'left' if self.direction.x < 0 else 'right'
  
     def move_enemy(self, player):
-        self.rect.x += self.direction.x * self.speed
-        self.rect.y += self.direction.y * self.speed
+        self.rect.x += self.direction.x * self.speed * self.settings.X_SCALE
+        self.rect.y += self.direction.y * self.speed * self.settings.Y_SCALE
         if self.state == 'normal':
             self.movement()
             self.animation_frame = 0

@@ -42,7 +42,7 @@ class Level:
             for column_i, column in enumerate(row.split(',')):
                 if self.theme == 'earth':
                     if column == '14': 
-                        Tile((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * 2 * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.background_decorations], self.theme, "clouds", self.settings)
+                        Tile((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * 2 * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.background_decorations], self.theme, "clouds", self.settings)
 
         levelfile.close()
 
@@ -54,13 +54,13 @@ class Level:
             for column_i, column in enumerate(row.split(',')):
                 if self.theme == 'earth':
                     if column == '189':
-                        Tile((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites], self.theme, "sign_right", self.settings)
+                        Tile((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites], self.theme, "sign_right", self.settings)
                     if column == '123':
-                        Tile((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites], self.theme, "fence", self.settings)
+                        Tile((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites], self.theme, "fence", self.settings)
                     if column == '42':
-                        Tile((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites], self.theme, "mushroom_1", self.settings)
+                        Tile((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites], self.theme, "mushroom_1", self.settings)
                     if column == '48':
-                        Tile((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites], self.theme, "plant", self.settings)
+                        Tile((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites], self.theme, "plant", self.settings)
 
         levelfile.close()
 
@@ -70,16 +70,16 @@ class Level:
             # print(row)
             for column_i, column in enumerate(row.split(',')):
                 if column == '18':
-                    Coin((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites, self.collectable_sprites, self.coins], self.theme, "coin", self.settings)
+                    Coin((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites, self.collectable_sprites, self.coins], self.theme, "coin", self.settings)
                     self.maxcoins += 1
                 if column == '39':
-                    Key((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites, self.collectable_sprites, self.keys], self.theme, "key_green", self.settings)
+                    Key((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites, self.collectable_sprites, self.keys], self.theme, "key_green", self.settings)
                 if column == '38':
-                    Key((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites, self.collectable_sprites, self.keys], self.theme, "key_blue", self.settings)
+                    Key((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites, self.collectable_sprites, self.keys], self.theme, "key_blue", self.settings)
                 if column == '40':
-                    Key((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites, self.collectable_sprites, self.keys], self.theme, "key_red", self.settings)
+                    Key((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites, self.collectable_sprites, self.keys], self.theme, "key_red", self.settings)
                 if column == '55':
-                    Boost((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites, self.collectable_sprites], self.theme, "star", self.settings)
+                    Boost((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites, self.collectable_sprites], self.theme, "star", self.settings)
 
         levelfile.close()
 
@@ -89,85 +89,85 @@ class Level:
             # print(row)
             for column_i, column in enumerate(row.split(',')):
                 if column == '61':
-                    Barrier((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.barriers], 'left', self.settings)
+                    Barrier((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.barriers], 'left', self.settings)
                 if column == '62':
-                    Barrier((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.barriers], 'right', self.settings)
+                    Barrier((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.barriers], 'right', self.settings)
                 if column == '285':
-                    Ghost((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * 3 / 4 * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_enemies, self.enemies], "ghost", self.barriers, self.settings)
+                    Ghost((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * 3 / 4 * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_enemies, self.enemies], "ghost", self.barriers, self.settings)
                 if column == '310':
-                    Slime((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE + self.settings.TILE_SIZE / 2 * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE / 2 * self.settings.Y_SCALE), [self.visible_enemies, self.enemies], "slime", self.barriers, self.settings)
+                    Slime((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE + self.settings.TILE_SIZE / 2 * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE / 2 * self.settings.Y_SCALE)), [self.visible_enemies, self.enemies], "slime", self.barriers, self.settings)
                 if column == '259':   
-                    Bat((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE + self.settings.TILE_SIZE / 2 * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * 3 / 5 * self.settings.Y_SCALE), [self.visible_enemies, self.enemies], "bat", self.barriers, self.collision_sprites, self.settings)
+                    Bat((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE + self.settings.TILE_SIZE / 2 * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * 3 / 5 * self.settings.Y_SCALE)), [self.visible_enemies, self.enemies], "bat", self.barriers, self.collision_sprites, self.settings)
         levelfile.close()
 
         levelfile = open('./assets/levels/' + str(self.curr_level) + '/tiles.csv', "r")
         levellines = levelfile.readlines()
-        self.settings.LEVEL_HEIGHT = len(levellines) * self.settings.TILE_SIZE
+        self.settings.LEVEL_HEIGHT = len(levellines) * self.settings.TILE_SIZE * self.settings.Y_SCALE
         for row_i, row in enumerate(levellines):
             # print(row)
             for column_i, column in enumerate(row.split(',')):
                 if self.theme == 'earth':
                     if column == '142':
-                        Tile((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites, self.collision_sprites], self.theme, "grass_left", self.settings)
+                        Tile((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites, self.collision_sprites], self.theme, "grass_left", self.settings)
                     if column == '143':
-                        Tile((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites, self.collision_sprites], self.theme, "grass_middle", self.settings)
+                        Tile((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites, self.collision_sprites], self.theme, "grass_middle", self.settings)
                     if column == '144':
-                        Tile((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites, self.collision_sprites], self.theme, "grass_right", self.settings)
+                        Tile((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites, self.collision_sprites], self.theme, "grass_right", self.settings)
                     if column == '126':
                         Tile((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites, self.collision_sprites], self.theme, "dirt", self.settings)
                     if column == '125':
-                        Tile((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites, self.collision_sprites], self.theme, "grass", self.settings)
+                        Tile((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites, self.collision_sprites], self.theme, "grass", self.settings)
                     if column == '156' or column == '155':
-                        Water((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites, self.animated_sprites, self.interactable_sprites], self.theme, "water", self.settings)
+                        Water((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites, self.animated_sprites, self.interactable_sprites], self.theme, "water", self.settings)
                     if column == '186':
-                        Finish((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE), [self.visible_sprites, self.interactable_sprites], self.theme, "finish", self.settings)
+                        Finish((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites, self.interactable_sprites], self.theme, "finish", self.settings)
                 if column == '0':
-                    self.player = Player((column_i * self.settings.TILE_SIZE * self.settings.X_SCALE, row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE), (self.settings.TILE_SIZE * self.settings.X_SCALE, self.settings.TILE_SIZE * self.settings.Y_SCALE), [self.visible_sprites,self.active_sprites],self.collision_sprites, self.settings)  
+                    self.player = Player((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites,self.active_sprites],self.collision_sprites, self.settings)  
 
         levelfile.close()
 
     def draw_hud(self, time):
-        heart_full = pygame.transform.scale(self.settings.ASSETS['HUD']['heart'][0], (32, 32))
-        heart_empty = pygame.transform.scale(self.settings.ASSETS['HUD']['heart'][1], (32, 32))
+        heart_full = pygame.transform.scale(self.settings.ASSETS['HUD']['heart'][0], (math.ceil(32 * self.settings.X_SCALE), math.ceil(32 * self.settings.Y_SCALE)))
+        heart_empty = pygame.transform.scale(self.settings.ASSETS['HUD']['heart'][1], (math.ceil(32 * self.settings.X_SCALE), math.ceil(32 * self.settings.Y_SCALE)))
 
-        coin = pygame.transform.scale(self.settings.ASSETS['HUD']['coin'][0], (32, 32))
+        coin = pygame.transform.scale(self.settings.ASSETS['HUD']['coin'][0], (math.ceil(32 * self.settings.X_SCALE), math.ceil(32 * self.settings.Y_SCALE)))
 
-        blue_full = pygame.transform.scale(self.settings.ASSETS['HUD']['blue'][0], (36, 32))
-        blue_empty = pygame.transform.scale(self.settings.ASSETS['HUD']['blue'][1], (36, 32))
-        green_full = pygame.transform.scale(self.settings.ASSETS['HUD']['green'][0], (36, 32))
-        green_empty = pygame.transform.scale(self.settings.ASSETS['HUD']['green'][1], (36, 32))
-        red_full = pygame.transform.scale(self.settings.ASSETS['HUD']['red'][0], (36, 32))
-        red_empty = pygame.transform.scale(self.settings.ASSETS['HUD']['red'][1], (36, 32))
+        blue_full = pygame.transform.scale(self.settings.ASSETS['HUD']['blue'][0], (math.ceil(36 * self.settings.X_SCALE), math.ceil(32 * self.settings.Y_SCALE)))
+        blue_empty = pygame.transform.scale(self.settings.ASSETS['HUD']['blue'][1], (math.ceil(36 * self.settings.X_SCALE), math.ceil(32 * self.settings.Y_SCALE)))
+        green_full = pygame.transform.scale(self.settings.ASSETS['HUD']['green'][0], (math.ceil(36 * self.settings.X_SCALE), math.ceil(32 * self.settings.Y_SCALE)))
+        green_empty = pygame.transform.scale(self.settings.ASSETS['HUD']['green'][1], (math.ceil(36 * self.settings.X_SCALE), math.ceil(32 * self.settings.Y_SCALE)))
+        red_full = pygame.transform.scale(self.settings.ASSETS['HUD']['red'][0], (math.ceil(36 * self.settings.X_SCALE), math.ceil(32 * self.settings.Y_SCALE)))
+        red_empty = pygame.transform.scale(self.settings.ASSETS['HUD']['red'][1], (math.ceil(36 * self.settings.X_SCALE), math.ceil(32 * self.settings.Y_SCALE)))
         
 
         for i in range(self.player.health):
-            self.display.blit(heart_full, (10 + i*42, 15))
+            self.display.blit(heart_full, (math.ceil((10 + i*42) * self.settings.X_SCALE), math.ceil(15 * self.settings.Y_SCALE)))
         for i in range(self.player.health, self.settings.MAX_HEALTH):
-            self.display.blit(heart_empty, (10 + i*42, 15))
+            self.display.blit(heart_empty, (math.ceil((10 + i*42) * self.settings.X_SCALE), math.ceil(15 * self.settings.Y_SCALE)))
         
         milis = time % 100
         seconds = (time / 1000) % 60
         minutes = (time / (1000 * 60)) % 60 
         text = "%02.0f:%02.0f:%02.0f" % (int(minutes), int(seconds), int(milis))
-        draw_text(self.display, text, self.settings.MENU_FONT, self.settings.TEXT_COLOR, self.settings.SCREEN_WIDTH / 2 - self.settings.SCREEN_WIDTH / 10, 0)
+        draw_text(self.display, text, self.settings.MENU_FONT, self.settings.TEXT_COLOR, math.ceil((self.settings.SCREEN_WIDTH / 2 - self.settings.SCREEN_WIDTH / 10) * self.settings.X_SCALE), 0)
 
-        self.display.blit(coin, (self.settings.SCREEN_WIDTH * 5 / 7, 15))
+        self.display.blit(coin, (math.ceil((self.settings.SCREEN_WIDTH * 5 / 7) * self.settings.X_SCALE), math.ceil(15 * self.settings.Y_SCALE)))
 
         coin_count = "%d/%d" % (self.maxcoins - len(self.coins), self.maxcoins)
-        draw_text(self.display, coin_count, self.settings.MENU_FONT, (255,204,0), self.settings.SCREEN_WIDTH * 5 / 7 + 40, 6)
+        draw_text(self.display, coin_count, self.settings.MENU_FONT, (255,204,0), math.ceil((self.settings.SCREEN_WIDTH * 5 / 7 + 40) * self.settings.X_SCALE), math.ceil(6 * self.settings.Y_SCALE))
 
         if "green" in [key.key_color for key in self.keys]:
-            self.display.blit(green_empty, (self.settings.SCREEN_WIDTH * 6 / 7, 15))
+            self.display.blit(green_empty, (math.ceil((self.settings.SCREEN_WIDTH * 6 / 7) * self.settings.X_SCALE), math.ceil(15 * self.settings.Y_SCALE)))
         else:
-            self.display.blit(green_full, (self.settings.SCREEN_WIDTH * 6 / 7, 15))
+            self.display.blit(green_full, (math.ceil((self.settings.SCREEN_WIDTH * 6 / 7) * self.settings.X_SCALE), math.ceil(15 * self.settings.Y_SCALE)))
         if "blue" in [key.key_color for key in self.keys]:
-            self.display.blit(blue_empty, (self.settings.SCREEN_WIDTH * 6 / 7 + 40, 15))
+            self.display.blit(blue_empty, (math.ceil((self.settings.SCREEN_WIDTH * 6 / 7 + 40) * self.settings.X_SCALE), math.ceil(15 * self.settings.Y_SCALE)))
         else:
-            self.display.blit(blue_full, (self.settings.SCREEN_WIDTH * 6 / 7 + 40, 15))
+            self.display.blit(blue_full, (math.ceil((self.settings.SCREEN_WIDTH * 6 / 7 + 40) * self.settings.X_SCALE), math.ceil(15 * self.settings.Y_SCALE)))
         if "red" in [key.key_color for key in self.keys]:
-            self.display.blit(red_empty, (self.settings.SCREEN_WIDTH * 6 / 7 + 80, 15))
+            self.display.blit(red_empty, (math.ceil((self.settings.SCREEN_WIDTH * 6 / 7 + 80) * self.settings.X_SCALE), math.ceil(15 * self.settings.Y_SCALE)))
         else:
-            self.display.blit(red_full, (self.settings.SCREEN_WIDTH * 6 / 7 + 80, 15))
+            self.display.blit(red_full, (math.ceil((self.settings.SCREEN_WIDTH * 6 / 7 + 80) * self.settings.X_SCALE), math.ceil(15 * self.settings.Y_SCALE)))
 
 
 

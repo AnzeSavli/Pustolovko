@@ -57,7 +57,7 @@ class Player(pygame.sprite.Sprite):
             self.state = 'swim'
         elif self.direction.y < 0:
             self.state = 'jump'
-        elif self.direction.y > self.gravity:
+        elif self.direction.y > self.gravity * self.settings.Y_SCALE:
             self.state = 'fall'
         elif self.direction.x > 0:
             self.state = 'run'
@@ -107,12 +107,12 @@ class Player(pygame.sprite.Sprite):
 
 
     def fall(self):
-        self.direction.y += self.gravity
+        self.direction.y += self.gravity * self.settings.Y_SCALE
         self.rect.y += self.direction.y
 
     def jump(self):
         if not self.jump_on_cooldown:
-            self.direction.y = self.jump_span
+            self.direction.y = self.jump_span * self.settings.Y_SCALE
             self.jump_amounts = self.jump_amounts - 1 if self.jump_amounts > 0 else 0
 
     def player_died(self):
@@ -148,7 +148,7 @@ class Player(pygame.sprite.Sprite):
         self.map_limits()
         self.check_movement()
         self.check_boost()
-        self.rect.x += self.direction.x * self.speed
+        self.rect.x += round(self.direction.x * self.speed * self.settings.X_SCALE)
         self.movement_collision()
         self.fall()
         self.jump_collision()

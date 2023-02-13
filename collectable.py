@@ -10,7 +10,7 @@ class Collectable(pygame.sprite.Sprite):
         self.animations = self.settings.ASSETS['collectables']
         self.animation_frame = 0
         
-        self.image = self.animations[type][self.animation_frame]
+        self.image = pygame.transform.scale(self.animations[type][self.animation_frame], (size))
         self.rect = self.image.get_rect(topleft= pos)
 
 class Coin(Collectable):

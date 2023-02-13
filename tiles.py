@@ -34,7 +34,7 @@ class Finish(Tile):
     
     def change_image(self):
         animation = self.animations["finish"]
-        self.image = animation[int(self.animation_frame)]
+        self.image = pygame.transform.scale(animation[int(self.animation_frame)], (self.size))
 
     def update(self, player, keys, time, *__):
         if len(keys.sprites()) == 0:
