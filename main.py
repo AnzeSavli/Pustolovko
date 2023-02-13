@@ -100,8 +100,14 @@ while settings.RUNNING:
                     settings.MENU_CD = pygame.time.get_ticks()
                     settings.GAME_PAUSED = True
             if event.type == pygame.VIDEORESIZE:
-                settings.SCREEN_WIDTH = SCREEN.get_width()
-                settings.SCREEN_HEIGHT = SCREEN.get_height()
+                if (SCREEN.get_width() < 1200):
+                    settings.SCREEN_WIDTH = 1200
+                else:
+                    settings.SCREEN_WIDTH = SCREEN.get_width()
+                if (SCREEN.get_height() < 800):
+                    settings.SCREEN_HEIGHT = 800
+                else:
+                    settings.SCREEN_HEIGHT = SCREEN.get_height()
                 pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT), pygame.RESIZABLE)
                 settings.X_SCALE = settings.SCREEN_WIDTH / settings.ORIGINAL_SCREEN_WIDTH
                 settings.Y_SCALE = settings.SCREEN_HEIGHT / settings.ORIGINAL_SCREEN_HEIGHT
@@ -378,4 +384,3 @@ sys.exit()
 
 #     pygame.display.update()
 #     GAME_CLOCK.tick(60)
-

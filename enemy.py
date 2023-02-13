@@ -315,3 +315,4 @@ class Ghost(Enemy):
         self.move_enemy(player)
         self.player_collision(player)
         self.image_handler()
+

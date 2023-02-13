@@ -149,25 +149,25 @@ class Level:
         seconds = (time / 1000) % 60
         minutes = (time / (1000 * 60)) % 60 
         text = "%02.0f:%02.0f:%02.0f" % (int(minutes), int(seconds), int(milis))
-        draw_text(self.display, text, self.settings.MENU_FONT, self.settings.TEXT_COLOR, math.ceil((self.settings.SCREEN_WIDTH / 2 - self.settings.SCREEN_WIDTH / 10) * self.settings.X_SCALE), 0)
+        draw_text(self.display, text, self.settings.MENU_FONT, self.settings.TEXT_COLOR, (self.settings.SCREEN_WIDTH / 2 - self.settings.SCREEN_WIDTH / 10), 0)
 
-        self.display.blit(coin, (math.ceil((self.settings.SCREEN_WIDTH * 5 / 7) * self.settings.X_SCALE), math.ceil(15 * self.settings.Y_SCALE)))
+        self.display.blit(coin, ((self.settings.SCREEN_WIDTH * 5 / 7), math.ceil(15 * self.settings.Y_SCALE)))
 
         coin_count = "%d/%d" % (self.maxcoins - len(self.coins), self.maxcoins)
-        draw_text(self.display, coin_count, self.settings.MENU_FONT, (255,204,0), math.ceil((self.settings.SCREEN_WIDTH * 5 / 7 + 40) * self.settings.X_SCALE), math.ceil(6 * self.settings.Y_SCALE))
+        draw_text(self.display, coin_count, self.settings.MENU_FONT, (255,204,0), (self.settings.SCREEN_WIDTH * 5 / 7 + math.ceil(40 * self.settings.X_SCALE)), math.ceil(6 * self.settings.Y_SCALE))
 
         if "green" in [key.key_color for key in self.keys]:
-            self.display.blit(green_empty, (math.ceil((self.settings.SCREEN_WIDTH * 6 / 7) * self.settings.X_SCALE), math.ceil(15 * self.settings.Y_SCALE)))
+            self.display.blit(green_empty, ((self.settings.SCREEN_WIDTH * 6 / 7), math.ceil(15 * self.settings.Y_SCALE)))
         else:
-            self.display.blit(green_full, (math.ceil((self.settings.SCREEN_WIDTH * 6 / 7) * self.settings.X_SCALE), math.ceil(15 * self.settings.Y_SCALE)))
+            self.display.blit(green_full, ((self.settings.SCREEN_WIDTH * 6 / 7), math.ceil(15 * self.settings.Y_SCALE)))
         if "blue" in [key.key_color for key in self.keys]:
-            self.display.blit(blue_empty, (math.ceil((self.settings.SCREEN_WIDTH * 6 / 7 + 40) * self.settings.X_SCALE), math.ceil(15 * self.settings.Y_SCALE)))
+            self.display.blit(blue_empty, ((self.settings.SCREEN_WIDTH * 6 / 7 + math.ceil(40 * self.settings.X_SCALE)), math.ceil(15 * self.settings.Y_SCALE)))
         else:
-            self.display.blit(blue_full, (math.ceil((self.settings.SCREEN_WIDTH * 6 / 7 + 40) * self.settings.X_SCALE), math.ceil(15 * self.settings.Y_SCALE)))
+            self.display.blit(blue_full, ((self.settings.SCREEN_WIDTH * 6 / 7 + math.ceil(40 * self.settings.X_SCALE)), math.ceil(15 * self.settings.Y_SCALE)))
         if "red" in [key.key_color for key in self.keys]:
-            self.display.blit(red_empty, (math.ceil((self.settings.SCREEN_WIDTH * 6 / 7 + 80) * self.settings.X_SCALE), math.ceil(15 * self.settings.Y_SCALE)))
+            self.display.blit(red_empty, ((self.settings.SCREEN_WIDTH * 6 / 7 + math.ceil(80 * self.settings.X_SCALE)), math.ceil(15 * self.settings.Y_SCALE)))
         else:
-            self.display.blit(red_full, (math.ceil((self.settings.SCREEN_WIDTH * 6 / 7 + 80) * self.settings.X_SCALE), math.ceil(15 * self.settings.Y_SCALE)))
+            self.display.blit(red_full, ((self.settings.SCREEN_WIDTH * 6 / 7 + math.ceil(80 * self.settings.X_SCALE)), math.ceil(15 * self.settings.Y_SCALE)))
 
 
 
@@ -275,3 +275,4 @@ class CameraSprites(pygame.sprite.Group):
             self.drawn += 1
             offset_pos = sprite.rect.topleft - self.offset
             self.display_surface.blit(sprite.image,offset_pos)
+
