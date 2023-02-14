@@ -1,11 +1,12 @@
 import pygame
 import os
+import math
 from controller import get_images
 
 class Button():
     def __init__(self, x, y, image, settings):
         self.settings = settings
-        self.image = image
+        self.image = pygame.transform.scale(image, (math.ceil(image.get_width() * settings.X_SCALE), math.ceil(image.get_height() * settings.Y_SCALE)))
         self.rect = self.image.get_rect(topleft= (x,y))
         self.clicked = False
 
