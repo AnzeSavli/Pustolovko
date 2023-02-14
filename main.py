@@ -169,10 +169,13 @@ while settings.RUNNING:
                     if event.key == pygame.K_ESCAPE:
                         if waiting_for == "left":
                             left_button.image = settings.MENU_ASSETS["buttons"]["button"]
+                            left_button.image = pygame.transform.scale(left_button.image, (math.ceil(left_button.image.get_width() * settings.X_SCALE), math.ceil(left_button.image.get_height() * settings.Y_SCALE)))
                         if waiting_for == "right":
                             right_button.image = settings.MENU_ASSETS["buttons"]["button"]
+                            right_button.image = pygame.transform.scale(right_button.image, (math.ceil(right_button.image.get_width() * settings.X_SCALE), math.ceil(right_button.image.get_height() * settings.Y_SCALE)))
                         if waiting_for == "jump":
                             jump_button.image = settings.MENU_ASSETS["buttons"]["button"]
+                            jump_button.image = pygame.transform.scale(jump_button.image, (math.ceil(jump_button.image.get_width() * settings.X_SCALE), math.ceil(jump_button.image.get_height() * settings.Y_SCALE)))
                         waiting_for = ""
                         waiting_input = False
                     elif event.key not in [settings.KEYBINDS['left'], settings.KEYBINDS['right'], settings.KEYBINDS['jump']]:
@@ -183,6 +186,7 @@ while settings.RUNNING:
                                 'jump': settings.KEYBINDS['jump']
                             })
                             left_button.image = settings.MENU_ASSETS["buttons"]["button"]
+                            left_button.image = pygame.transform.scale(left_button.image, (math.ceil(left_button.image.get_width() * settings.X_SCALE), math.ceil(left_button.image.get_height() * settings.Y_SCALE)))
                         elif waiting_for == "right":
                             save_settings({
                                 'left' : settings.KEYBINDS['left'],
@@ -190,6 +194,7 @@ while settings.RUNNING:
                                 'jump': settings.KEYBINDS['jump']
                             })
                             right_button.image = settings.MENU_ASSETS["buttons"]["button"]
+                            right_button.image = pygame.transform.scale(right_button.image, (math.ceil(right_button.image.get_width() * settings.X_SCALE), math.ceil(right_button.image.get_height() * settings.Y_SCALE)))
                         elif waiting_for == "jump":
                             save_settings({
                                 'left' : settings.KEYBINDS['left'],
@@ -197,7 +202,7 @@ while settings.RUNNING:
                                 'jump': event.key
                             })
                             jump_button.image = settings.MENU_ASSETS["buttons"]["button"]
-
+                            jump_button.image = pygame.transform.scale(jump_button.image, (math.ceil(jump_button.image.get_width() * settings.X_SCALE), math.ceil(jump_button.image.get_height() * settings.Y_SCALE)))
                         set_keybinds(settings)
                         waiting_input = False
                         waiting_for = ""
@@ -294,17 +299,20 @@ while settings.RUNNING:
                 if settings.MUSIC_MUTED:
                     settings.MUSIC_MUTED = False
                     music_button.image = settings.MENU_ASSETS["buttons"]["music"]
+                    music_button.image = pygame.transform.scale(music_button.image, (math.ceil(music_button.image.get_width() * settings.X_SCALE), math.ceil(music_button.image.get_height() * settings.Y_SCALE)))
                 else:
                     settings.MUSIC_MUTED = True
                     music_button.image = settings.MENU_ASSETS["buttons"]["music_muted"]
-
+                    music_button.image = pygame.transform.scale(music_button.image, (math.ceil(music_button.image.get_width() * settings.X_SCALE), math.ceil(music_button.image.get_height() * settings.Y_SCALE)))
             if sfx_button.draw(SCREEN) and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
                 if settings.SFX_MUTED:
                     settings.SFX_MUTED = False
                     sfx_button.image = settings.MENU_ASSETS["buttons"]["sfx"]
+                    sfx_button.image = pygame.transform.scale(sfx_button.image, (math.ceil(sfx_button.image.get_width() * settings.X_SCALE), math.ceil(sfx_button.image.get_height() * settings.Y_SCALE)))
                 else:
                     settings.SFX_MUTED = True
                     sfx_button.image = settings.MENU_ASSETS["buttons"]["sfx_muted"]                
+                    sfx_button.image = pygame.transform.scale(sfx_button.image, (math.ceil(sfx_button.image.get_width() * settings.X_SCALE), math.ceil(sfx_button.image.get_height() * settings.Y_SCALE)))
 
             if music_plus_button.draw_buttons(SCREEN) and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
                 if settings.MUSIC_VOLUME < 100:
@@ -323,8 +331,8 @@ while settings.RUNNING:
                     settings.SFX_VOLUME -= 0.2
                     pygame.mixer.music.set_volume(int(settings.MUSIC_VOLUME) / 100)
 
-            draw_text(SCREEN, str(int(settings.MUSIC_VOLUME)), settings.MENU_FONT, (255,255,255), settings.SCREEN_WIDTH/2 + settings.MENU_ASSETS['buttons']['music'].get_width()*1/4 - 30, (settings.SCREEN_HEIGHT /2 - settings.MENU_ASSETS['buttons']['music'].get_height() + 10)) if not settings.MUSIC_MUTED else draw_text(SCREEN, str(0), settings.MENU_FONT, (255,255,255), settings.SCREEN_WIDTH/2 + settings.MENU_ASSETS['buttons']['music'].get_width()*1/4 - 30, (settings.SCREEN_HEIGHT /2 - settings.MENU_ASSETS['buttons']['music'].get_height() + 10))
-            draw_text(SCREEN, str(int(settings.SFX_VOLUME)), settings.MENU_FONT, (255,255,255), settings.SCREEN_WIDTH/2 + settings.MENU_ASSETS['buttons']['music'].get_width()*1/4 - 30, (settings.SCREEN_HEIGHT /2 + settings.MENU_ASSETS['buttons']['music'].get_height()/4 + 10)) if not settings.SFX_MUTED else draw_text(SCREEN, str(0), settings.MENU_FONT, (255,255,255), settings.SCREEN_WIDTH/2 + settings.MENU_ASSETS['buttons']['music'].get_width()*1/4 - 30, (settings.SCREEN_HEIGHT /2 + settings.MENU_ASSETS['buttons']['music'].get_height()/4 + 10))
+            draw_text(SCREEN, str(int(settings.MUSIC_VOLUME)), settings.MENU_FONT, (255,255,255), settings.SCREEN_WIDTH/2 + math.ceil(settings.MENU_ASSETS['buttons']['music'].get_width()* settings.X_SCALE)*1/4 - math.ceil(30 * settings.X_SCALE), (settings.SCREEN_HEIGHT /2 - math.ceil(settings.MENU_ASSETS['buttons']['music'].get_height() * settings.Y_SCALE) + math.ceil(10 * settings.Y_SCALE))) if not settings.MUSIC_MUTED else draw_text(SCREEN, str(0), settings.MENU_FONT, (255,255,255), settings.SCREEN_WIDTH/2 + math.ceil(settings.MENU_ASSETS['buttons']['music'].get_width()* settings.X_SCALE)*1/4 - math.ceil(30 * settings.X_SCALE), (settings.SCREEN_HEIGHT /2 - math.ceil(settings.MENU_ASSETS['buttons']['music'].get_height() * settings.Y_SCALE) + math.ceil(10 * settings.Y_SCALE)))
+            draw_text(SCREEN, str(int(settings.SFX_VOLUME)), settings.MENU_FONT, (255,255,255), settings.SCREEN_WIDTH/2 + math.ceil(settings.MENU_ASSETS['buttons']['music'].get_width()* settings.X_SCALE)*1/4 - math.ceil(30 * settings.X_SCALE), (settings.SCREEN_HEIGHT /2 + math.ceil(settings.MENU_ASSETS['buttons']['music'].get_height() * settings.Y_SCALE)/4 + math.ceil(10 * settings.Y_SCALE))) if not settings.SFX_MUTED else draw_text(SCREEN, str(0), settings.MENU_FONT, (255,255,255), settings.SCREEN_WIDTH/2 + math.ceil(settings.MENU_ASSETS['buttons']['music'].get_width()* settings.X_SCALE)*1/4 - math.ceil(30 * settings.X_SCALE), (settings.SCREEN_HEIGHT /2 + math.ceil(settings.MENU_ASSETS['buttons']['music'].get_height() * settings.Y_SCALE)/4 + math.ceil(10 * settings.Y_SCALE)))
             
             if back_button.draw(SCREEN) and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
                 settings.MENU_STATE = "settings"
@@ -339,27 +347,30 @@ while settings.RUNNING:
 
  
                 left_button.image = settings.MENU_ASSETS["buttons"]["buttonpressed"]
+                left_button.image = pygame.transform.scale(left_button.image, (math.ceil(left_button.image.get_width() * settings.X_SCALE), math.ceil(left_button.image.get_height() * settings.Y_SCALE)))
                 waiting_input = True
                 waiting_for = "left"
-            draw_text(SCREEN, "LEFT   ", settings.MENU_FONT, (255, 255, 255), settings.SCREEN_WIDTH/2 - settings.MENU_ASSETS['buttons']['button'].get_width()/2 + 10, (settings.SCREEN_HEIGHT / 2 - settings.MENU_ASSETS['buttons']['button'].get_height() * 9 / 4) + 10)    
+            draw_text(SCREEN, "LEFT   ", settings.MENU_FONT, (255, 255, 255), settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_width() * settings.X_SCALE)/2 + math.ceil(10 * settings.X_SCALE), (settings.SCREEN_HEIGHT / 2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_height() * settings.Y_SCALE) * 9 / 4) + math.ceil(10 * settings.Y_SCALE))    
             if not waiting_for == "left":
-                draw_text(SCREEN, "LEFT    %s" % (pygame.key.name(settings.KEYBINDS['left']).upper()), settings.MENU_FONT, (255, 255, 255), settings.SCREEN_WIDTH/2 - settings.MENU_ASSETS['buttons']['button'].get_width()/2 + 10, (settings.SCREEN_HEIGHT / 2 - settings.MENU_ASSETS['buttons']['button'].get_height() * 9 / 4) + 10)
+                draw_text(SCREEN, "LEFT    %s" % (pygame.key.name(settings.KEYBINDS['left']).upper()), settings.MENU_FONT, (255, 255, 255), settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_width() * settings.X_SCALE)/2 + math.ceil(10 * settings.X_SCALE), (settings.SCREEN_HEIGHT / 2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_height() * settings.Y_SCALE) * 9 / 4) + math.ceil(10 * settings.Y_SCALE))
                              
             if right_button.draw(SCREEN) and not waiting_input and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
 
                 right_button.image = settings.MENU_ASSETS["buttons"]["buttonpressed"]
+                right_button.image = pygame.transform.scale(right_button.image, (math.ceil(right_button.image.get_width() * settings.X_SCALE), math.ceil(right_button.image.get_height() * settings.Y_SCALE)))
                 waiting_input = True
                 waiting_for = "right"
-            draw_text(SCREEN, "RIGHT  ", settings.MENU_FONT, (255, 255, 255), settings.SCREEN_WIDTH/2 - settings.MENU_ASSETS['buttons']['button'].get_width()/2 + 10, (settings.SCREEN_HEIGHT / 2 - settings.MENU_ASSETS['buttons']['button'].get_height()) + 10)    
+            draw_text(SCREEN, "RIGHT  ", settings.MENU_FONT, (255, 255, 255), settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_width() * settings.X_SCALE)/2 + math.ceil(10 * settings.X_SCALE), (settings.SCREEN_HEIGHT / 2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_height() * settings.Y_SCALE)) + math.ceil(10 * settings.Y_SCALE))    
             if not waiting_for == "right":
-                draw_text(SCREEN, "RIGHT  %s" % (pygame.key.name(settings.KEYBINDS['right']).upper()), settings.MENU_FONT, (255, 255, 255), settings.SCREEN_WIDTH/2 - settings.MENU_ASSETS['buttons']['button'].get_width()/2 + 10, (settings.SCREEN_HEIGHT / 2 - settings.MENU_ASSETS['buttons']['button'].get_height()) + 10)
+                draw_text(SCREEN, "RIGHT  %s" % (pygame.key.name(settings.KEYBINDS['right']).upper()), settings.MENU_FONT, (255, 255, 255), settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_width()/2 * settings.X_SCALE) + math.ceil(10 * settings.X_SCALE), (settings.SCREEN_HEIGHT / 2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_height() * settings.Y_SCALE)) + math.ceil(10 * settings.Y_SCALE))
             if jump_button.draw(SCREEN) and not waiting_input and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
                 jump_button.image = settings.MENU_ASSETS["buttons"]["buttonpressed"]
+                jump_button.image = pygame.transform.scale(jump_button.image, (math.ceil(jump_button.image.get_width() * settings.X_SCALE), math.ceil(jump_button.image.get_height() * settings.Y_SCALE)))
                 waiting_input = True
                 waiting_for = "jump"
-            draw_text(SCREEN, "JUMP  ", settings.MENU_FONT, (255, 255, 255), settings.SCREEN_WIDTH/2 - settings.MENU_ASSETS['buttons']['button'].get_width()/2 + 10, (settings.SCREEN_HEIGHT / 2 + settings.MENU_ASSETS['buttons']['button'].get_height()/4) + 10)    
+            draw_text(SCREEN, "JUMP  ", settings.MENU_FONT, (255, 255, 255), settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_width() * settings.X_SCALE)/2 + math.ceil(10 * settings.X_SCALE), (settings.SCREEN_HEIGHT / 2 + math.ceil(settings.MENU_ASSETS['buttons']['button'].get_height() * settings.Y_SCALE)/4) + math.ceil(10 * settings.Y_SCALE))    
             if not waiting_for == "jump":
-                draw_text(SCREEN, "JUMP   %s" % (pygame.key.name(settings.KEYBINDS['jump']).upper()), settings.MENU_FONT, (255, 255, 255), settings.SCREEN_WIDTH/2 - settings.MENU_ASSETS['buttons']['button'].get_width()/2 + 10, (settings.SCREEN_HEIGHT / 2 + settings.MENU_ASSETS['buttons']['button'].get_height()/4) + 10)
+                draw_text(SCREEN, "JUMP   %s" % (pygame.key.name(settings.KEYBINDS['jump']).upper()), settings.MENU_FONT, (255, 255, 255), settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_width() * settings.X_SCALE)/2 + math.ceil(10 * settings.X_SCALE), (settings.SCREEN_HEIGHT / 2 + math.ceil(settings.MENU_ASSETS['buttons']['button'].get_height() * settings.Y_SCALE)/4) + math.ceil(10 * settings.Y_SCALE))
             if back_button.draw(SCREEN) and not waiting_input and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
                 settings.MENU_STATE = "settings"
                 settings.MENU_CD = pygame.time.get_ticks()
