@@ -160,6 +160,47 @@ while settings.RUNNING:
         for event in settings.EVENTS:
             if event.type == pygame.QUIT:
                 settings.RUNNING = False
+            if event.type == pygame.VIDEORESIZE:
+                if (SCREEN.get_width() < 1200):
+                    settings.SCREEN_WIDTH = 1200
+                else:
+                    settings.SCREEN_WIDTH = SCREEN.get_width()
+                if (SCREEN.get_height() < 800):
+                    settings.SCREEN_HEIGHT = 800
+                else:
+                    settings.SCREEN_HEIGHT = SCREEN.get_height()
+                pygame.display.set_mode((settings.SCREEN_WIDTH, settings.SCREEN_HEIGHT), pygame.RESIZABLE)
+                settings.X_SCALE = settings.SCREEN_WIDTH / settings.ORIGINAL_SCREEN_WIDTH
+                settings.Y_SCALE = settings.SCREEN_HEIGHT / settings.ORIGINAL_SCREEN_HEIGHT
+
+                NAME_INPUT = pygame_gui.UIManager((settings.SCREEN_WIDTH,settings.SCREEN_HEIGHT), './assets/menu/input/theme.json')
+
+                # ------ TEXT FIELD ------
+
+                TEXT_FIELD = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((settings.SCREEN_WIDTH/2 - math.ceil(100 * settings.X_SCALE), settings.SCREEN_HEIGHT / 2 - math.ceil(55 * settings.Y_SCALE)), (settings.SCREEN_WIDTH*3/7, math.ceil(50 * settings.Y_SCALE))), manager=NAME_INPUT, object_id="#name_input_field", initial_text=settings.PLAYER_NAME)
+
+                start_button = Button(settings.SCREEN_WIDTH/4 - math.ceil(settings.MENU_ASSETS['buttons']['start'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 - math.ceil(settings.MENU_ASSETS['buttons']['start'].get_height() * settings.Y_SCALE)),settings.MENU_ASSETS['buttons']['start'], settings)
+                scores_button = Button(settings.SCREEN_WIDTH/4 - math.ceil(settings.MENU_ASSETS['buttons']['scores'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 + math.ceil(settings.MENU_ASSETS['buttons']['scores'].get_height() * settings.Y_SCALE) / 3),settings.MENU_ASSETS['buttons']['scores'], settings)
+                main_settings_button = Button(settings.SCREEN_WIDTH/4 - math.ceil(settings.MENU_ASSETS['buttons']['settings'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 + math.ceil(settings.MENU_ASSETS['buttons']['settings'].get_height() * settings.Y_SCALE) * 5 / 3),settings.MENU_ASSETS['buttons']['settings'], settings)
+                exit_button = Button(settings.SCREEN_WIDTH/4 - math.ceil(settings.MENU_ASSETS['buttons']['exit'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 + math.ceil(settings.MENU_ASSETS['buttons']['exit'].get_height() * settings.Y_SCALE) * 3),settings.MENU_ASSETS['buttons']['exit'], settings)
+
+                resume_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['resume'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 - math.ceil(settings.MENU_ASSETS['buttons']['resume'].get_height() * settings.Y_SCALE)),settings.MENU_ASSETS['buttons']['resume'], settings)
+                settings_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['settings'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 + math.ceil(settings.MENU_ASSETS['buttons']['settings'].get_height() * settings.Y_SCALE)/4),settings.MENU_ASSETS['buttons']['settings'], settings)
+                mainmenu_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['mainmenu'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 + math.ceil(settings.MENU_ASSETS['buttons']['mainmenu'].get_height() * settings.Y_SCALE)* 3/2),settings.MENU_ASSETS['buttons']['mainmenu'], settings)
+
+                audio_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['audio'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT / 2 - math.ceil(settings.MENU_ASSETS['buttons']['audio'].get_height() * settings.Y_SCALE)), settings.MENU_ASSETS['buttons']['audio'], settings)
+                keybinds_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['keybinds'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT /2 + math.ceil(settings.MENU_ASSETS['buttons']['keybinds'].get_height() * settings.Y_SCALE)/4), settings.MENU_ASSETS['buttons']['keybinds'], settings)
+                back_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['back'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT / 2 + math.ceil(settings.MENU_ASSETS['buttons']['back'].get_height() * settings.Y_SCALE)*3/2), settings.MENU_ASSETS['buttons']['back'], settings)
+                music_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['music'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT / 2 - math.ceil(settings.MENU_ASSETS['buttons']['music'].get_height() * settings.Y_SCALE)), settings.MENU_ASSETS['buttons']['music'], settings)
+                music_minus_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['music'].get_width() * settings.X_SCALE)/2 - math.ceil(5 * settings.X_SCALE) - math.ceil(settings.MENU_ASSETS['buttons']['minus'].get_width() * settings.X_SCALE), (settings.SCREEN_HEIGHT / 2 - math.ceil(settings.MENU_ASSETS['buttons']['music'].get_height() * settings.Y_SCALE)), settings.MENU_ASSETS['buttons']['minus'], settings)
+                music_plus_button = Button(settings.SCREEN_WIDTH/2 + math.ceil(settings.MENU_ASSETS['buttons']['music'].get_width() * settings.X_SCALE)/2 + math.ceil(5 * settings.X_SCALE), (settings.SCREEN_HEIGHT / 2 - math.ceil(settings.MENU_ASSETS['buttons']['music'].get_height() * settings.Y_SCALE)), settings.MENU_ASSETS['buttons']['plus'], settings)
+                sfx_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['sfx'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT / 2 + math.ceil(settings.MENU_ASSETS['buttons']['sfx'].get_height() * settings.Y_SCALE)/4), settings.MENU_ASSETS['buttons']['sfx'], settings)
+                sfx_minus_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['sfx'].get_width() * settings.X_SCALE)/2 - math.ceil(5 * settings.X_SCALE) - math.ceil(settings.MENU_ASSETS['buttons']['minus'].get_width() * settings.X_SCALE), (settings.SCREEN_HEIGHT / 2 + math.ceil(settings.MENU_ASSETS['buttons']['sfx'].get_height() * settings.Y_SCALE)/4), settings.MENU_ASSETS['buttons']['minus'], settings)
+                sfx_plus_button = Button(settings.SCREEN_WIDTH/2 + math.ceil(settings.MENU_ASSETS['buttons']['sfx'].get_width() * settings.X_SCALE)/2 + math.ceil(5 * settings.X_SCALE), (settings.SCREEN_HEIGHT / 2 + math.ceil(settings.MENU_ASSETS['buttons']['sfx'].get_height() * settings.Y_SCALE)/4), settings.MENU_ASSETS['buttons']['plus'], settings)
+
+                left_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT / 2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_height() * settings.Y_SCALE) * 9 / 4), settings.MENU_ASSETS['buttons']['button'], settings)
+                right_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT / 2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_height() * settings.Y_SCALE)), settings.MENU_ASSETS['buttons']['button'], settings)
+                jump_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT /2 + math.ceil(settings.MENU_ASSETS['buttons']['button'].get_height() * settings.Y_SCALE)/4), settings.MENU_ASSETS['buttons']['button'], settings)
             if settings.MENU_STATE == "main":
                 if event.type == pygame_gui.UI_TEXT_ENTRY_CHANGED and event.ui_object_id == "#name_input_field" and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
                     settings.PLAYER_NAME = event.text

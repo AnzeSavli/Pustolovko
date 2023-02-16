@@ -1,6 +1,7 @@
 import pygame
 from settings import *
 import sys
+import requests
 
 class Tile(pygame.sprite.Sprite):
     def __init__(self, pos, size, groups,theme, type, settings):
@@ -49,7 +50,11 @@ class Finish(Tile):
                 minutes = (time / (1000 * 60)) % 60 
                 text = "%02.0f:%02.0f:%02.0f" % (int(minutes), int(seconds), int(milis))
                 print(text)
-
+                body = {'player' : self.settings.PLAYER_NAME,
+                        'score' : text,
+                        'level' : self.settings.CURRENT_LEVEL}
+                headers = {'safety_token' : "!A%D*G-KaPdSgVkYp3s6v9y/B?E(H+MbQeThWmZq4t7w!z%C&F)J@NcRfUjXn2r5u8x/A?D(G-KaPdSgVkYp3s6v9y$B&E)H@MbQeThWmZq4t7w!z%C*F-JaNdRfUjXn2r5u8x/A?D(G+KbPeShVkYp3s6v9y$B&E)H@McQfTjWnZq4t7w!z%C*F-JaNdRgUkXp2s5u8x/A?D(G+KbPeShVmYq3t6w9y$B&E)H@McQfTjWnZr4u7x!A%C*F-JaNd"}
+                requests.post('http://localhost:3000/score', json=body, headers=headers)
                 self.settings.FINISHED = True
 
 
