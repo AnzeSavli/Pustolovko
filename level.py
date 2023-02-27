@@ -6,9 +6,14 @@ from collectable import *
 from controller import *
 from enemy import *
 
+class Tutorial:
+    def __init__(self, settings):
+        self.visible_sprites = MainCamera(self.settings)
+        self.interactable_sprites = pygame.sprite.Group()
+
 class Level:
     def __init__(self, settings):
-        self.maxcoins = 0
+        self.maxcoins = 0   	
         self.display = pygame.display.get_surface()
         self.settings = settings
         self.curr_level = self.settings.CURRENT_LEVEL
@@ -42,7 +47,7 @@ class Level:
             for column_i, column in enumerate(row.split(',')):
                 if self.theme == 'earth':
                     if column == '14': 
-                        Tile((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * 2 * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.background_decorations], self.theme, "clouds", self.settings)
+                        Cloud((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * 2 * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.background_decorations, self.animated_sprites], self.theme, "clouds", self.settings)
 
         levelfile.close()
 
@@ -118,11 +123,11 @@ class Level:
                     if column == '125':
                         Tile((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites, self.collision_sprites], self.theme, "grass", self.settings)
                     if column == '156' or column == '155':
-                        Water((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites, self.animated_sprites, self.interactable_sprites], self.theme, "water", self.settings)
+                        Water((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites, self.interactable_sprites], self.theme, "water", self.settings)
                     if column == '186':
                         Finish((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites, self.interactable_sprites], self.theme, "finish", self.settings)
                 if column == '0':
-                    self.player = Player((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil(self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(self.settings.TILE_SIZE * self.settings.Y_SCALE)), [self.visible_sprites,self.active_sprites],self.collision_sprites, self.settings)  
+                    self.player = Player((math.ceil(column_i * self.settings.TILE_SIZE * self.settings.X_SCALE), math.ceil(row_i * self.settings.TILE_SIZE * self.settings.Y_SCALE)), (math.ceil((self.settings.TILE_SIZE - 2) * self.settings.X_SCALE), math.ceil((self.settings.TILE_SIZE - 2) * self.settings.Y_SCALE)), [self.visible_sprites,self.active_sprites],self.collision_sprites, self.settings)  
 
         levelfile.close()
 
@@ -175,11 +180,11 @@ class Level:
         curr_time = pygame.time.get_ticks()
         time = (curr_time - self.start_time - self.pause_time)
         
-        
         self.collectable_sprites.update(self.player)
         self.interactable_sprites.update(self.player, self.keys, time + len(self.coins)*5000)
         self.enemies.update(self.player)
         self.active_sprites.update()
+        self.animated_sprites.update()
         
         bg = pygame.image.load('./assets/images/' + self.theme + '/bg/bg.png').convert_alpha()
         bg = pygame.transform.scale(bg, (self.settings.SCREEN_WIDTH, self.settings.SCREEN_HEIGHT))

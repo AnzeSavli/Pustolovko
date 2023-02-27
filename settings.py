@@ -1,6 +1,7 @@
 import pygame
 import os
 import math
+import json
 from controller import get_images
 
 class Button():
@@ -69,6 +70,8 @@ class Settings():
         self.LEVEL_HEIGHT = 0
         self.FINISHED = False
         self.GAME_PAUSED = True
+        self.TUTORIAL = False
+        self.TUTORIAL_LEVEL = 1
         self.MENU_STATE = "main"
         self.PREVIOUS_MENU = "main"
         self.MENU_CD = 0
@@ -101,7 +104,31 @@ class Settings():
         self.PLAYER_NAME = "Player"
         self.MAX_HEALTH = 3
 
+        self.set_tutorial_state()
+
+
+    def check_tutorial(self):
+        with open("./saves/settings/tutorial.json", 'r+') as file:
+            tutorial = json.load(file)
+        return tutorial
     
+    def check_tutorial_state(self):
+        try:
+            saved_state = self.check_tutorial()
+        except:
+            self.write_tutorial_state({'tutorial' : False})
+            saved_state = {"tutorial" : False}
+        return saved_state
+
+    def set_tutorial_state(self):
+        for key, item in self.check_tutorial_state().items():
+            if key == 'tutorial':
+                self.TUTORIAL = item
+
+    def write_tutorial_state(self, data):
+        with open("./saves/settings/tutorial.json", "w") as file:
+            json.dump(data,file)
+
     def load_assets(self, *assetslist):
         self.ASSETS = {key : {} for key in assetslist}
         assets_path = './assets/images/'
