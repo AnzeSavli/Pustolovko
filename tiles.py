@@ -95,7 +95,7 @@ class Finish(Tile):
                         'level' : self.settings.CURRENT_LEVEL}
                 headers = {'safety_token' : "!A%D*G-KaPdSgVkYp3s6v9y/B?E(H+MbQeThWmZq4t7w!z%C&F)J@NcRfUjXn2r5u8x/A?D(G-KaPdSgVkYp3s6v9y$B&E)H@MbQeThWmZq4t7w!z%C*F-JaNdRfUjXn2r5u8x/A?D(G+KbPeShVkYp3s6v9y$B&E)H@McQfTjWnZq4t7w!z%C*F-JaNdRgUkXp2s5u8x/A?D(G+KbPeShVmYq3t6w9y$B&E)H@McQfTjWnZr4u7x!A%C*F-JaNd"}
                 try:
-                    requests.post('http://localhost:3000/score', json=body, headers=headers)
+                    requests.post('http://86.61.23.85:3000/score', json=body, headers=headers)
                 except:
                     print('no scoreboard server')
                 self.settings.FINISHED = True

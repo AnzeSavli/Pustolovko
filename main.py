@@ -33,7 +33,7 @@ NAME_INPUT = pygame_gui.UIManager((settings.SCREEN_WIDTH,settings.SCREEN_HEIGHT)
 
 # ------ TEXT FIELD ------
 
-TEXT_FIELD = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((settings.SCREEN_WIDTH/2 - 100, settings.SCREEN_HEIGHT / 2 - 55), (settings.SCREEN_WIDTH*3/7, 50)), manager=NAME_INPUT, object_id="#name_input_field", initial_text=settings.PLAYER_NAME)
+TEXT_FIELD = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((settings.SCREEN_WIDTH/4 - 37, settings.SCREEN_HEIGHT / 2 - 100), (settings.SCREEN_WIDTH*9/16, 50)), manager=NAME_INPUT, object_id="#name_input_field", initial_text=settings.PLAYER_NAME)
 
 # ------ ASSETS ------
 
@@ -48,10 +48,10 @@ set_keybinds(settings)
 pygame.mixer.music.play(-1)
 
 # ------ BUTTONS ------
-start_button = Button(settings.SCREEN_WIDTH/4 - settings.MENU_ASSETS['buttons']['start'].get_width()/2, (settings.SCREEN_HEIGHT/2 - settings.MENU_ASSETS['buttons']['start'].get_height()),settings.MENU_ASSETS['buttons']['start'], settings)
-scores_button = Button(settings.SCREEN_WIDTH/4 - settings.MENU_ASSETS['buttons']['scores'].get_width()/2, (settings.SCREEN_HEIGHT/2 + settings.MENU_ASSETS['buttons']['scores'].get_height() / 3),settings.MENU_ASSETS['buttons']['scores'], settings)
-main_settings_button = Button(settings.SCREEN_WIDTH/4 - settings.MENU_ASSETS['buttons']['settings'].get_width()/2, (settings.SCREEN_HEIGHT/2 + settings.MENU_ASSETS['buttons']['settings'].get_height() * 5 / 3),settings.MENU_ASSETS['buttons']['settings'], settings)
-exit_button = Button(settings.SCREEN_WIDTH/4 - settings.MENU_ASSETS['buttons']['exit'].get_width()/2, (settings.SCREEN_HEIGHT/2 + settings.MENU_ASSETS['buttons']['exit'].get_height() * 3),settings.MENU_ASSETS['buttons']['exit'], settings)
+start_button = Button(settings.SCREEN_WIDTH/2 - settings.MENU_ASSETS['buttons']['start'].get_width()/2, (settings.SCREEN_HEIGHT/2 - settings.MENU_ASSETS['buttons']['start'].get_height()),settings.MENU_ASSETS['buttons']['start'], settings)
+# scores_button = Button(settings.SCREEN_WIDTH/4 - settings.MENU_ASSETS['buttons']['scores'].get_width()/2, (settings.SCREEN_HEIGHT/2 + settings.MENU_ASSETS['buttons']['scores'].get_height() / 3),settings.MENU_ASSETS['buttons']['scores'], settings)
+main_settings_button = Button(settings.SCREEN_WIDTH/2 - settings.MENU_ASSETS['buttons']['settings'].get_width()/2, (settings.SCREEN_HEIGHT/2 + settings.MENU_ASSETS['buttons']['settings'].get_height() /4),settings.MENU_ASSETS['buttons']['settings'], settings)
+exit_button = Button(settings.SCREEN_WIDTH/2 - settings.MENU_ASSETS['buttons']['exit'].get_width()/2, (settings.SCREEN_HEIGHT/2 + settings.MENU_ASSETS['buttons']['exit'].get_height()* 3/2),settings.MENU_ASSETS['buttons']['exit'], settings)
 
 resume_button = Button(settings.SCREEN_WIDTH/2 - settings.MENU_ASSETS['buttons']['resume'].get_width()/2, (settings.SCREEN_HEIGHT/2 - settings.MENU_ASSETS['buttons']['resume'].get_height()),settings.MENU_ASSETS['buttons']['resume'], settings)
 settings_button = Button(settings.SCREEN_WIDTH/2 - settings.MENU_ASSETS['buttons']['settings'].get_width()/2, (settings.SCREEN_HEIGHT/2 + settings.MENU_ASSETS['buttons']['settings'].get_height()/4),settings.MENU_ASSETS['buttons']['settings'], settings)
@@ -71,6 +71,11 @@ left_button = Button(settings.SCREEN_WIDTH/2 - settings.MENU_ASSETS['buttons']['
 right_button = Button(settings.SCREEN_WIDTH/2 - settings.MENU_ASSETS['buttons']['button'].get_width()/2, (settings.SCREEN_HEIGHT / 2 - settings.MENU_ASSETS['buttons']['button'].get_height()), settings.MENU_ASSETS['buttons']['button'], settings)
 jump_button = Button(settings.SCREEN_WIDTH/2 - settings.MENU_ASSETS['buttons']['button'].get_width()/2, (settings.SCREEN_HEIGHT /2 + settings.MENU_ASSETS['buttons']['button'].get_height()/4), settings.MENU_ASSETS['buttons']['button'], settings)
 
+level_1_button = Button(settings.SCREEN_WIDTH / 4 - math.ceil(settings.MENU_ASSETS['buttons']['1'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT * 2 / 3 - math.ceil(settings.MENU_ASSETS['buttons']['1'].get_height() * settings.Y_SCALE)), settings.MENU_ASSETS['buttons']['1'], settings)
+level_2_button = Button(settings.SCREEN_WIDTH * 3/8 - math.ceil(settings.MENU_ASSETS['buttons']['2'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT * 2 / 3 - math.ceil(settings.MENU_ASSETS['buttons']['2'].get_height() * settings.Y_SCALE)), settings.MENU_ASSETS['buttons']['2'], settings)
+level_3_button = Button(settings.SCREEN_WIDTH / 2- math.ceil(settings.MENU_ASSETS['buttons']['3'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT * 2 / 3 - math.ceil(settings.MENU_ASSETS['buttons']['3'].get_height() * settings.Y_SCALE)), settings.MENU_ASSETS['buttons']['3'], settings)
+level_4_button = Button(settings.SCREEN_WIDTH * 5/8 - math.ceil(settings.MENU_ASSETS['buttons']['4'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT * 2 / 3 - math.ceil(settings.MENU_ASSETS['buttons']['4'].get_height() * settings.Y_SCALE)), settings.MENU_ASSETS['buttons']['4'], settings)
+level_5_button = Button(settings.SCREEN_WIDTH * 3/4 - math.ceil(settings.MENU_ASSETS['buttons']['5'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT * 2 / 3 - math.ceil(settings.MENU_ASSETS['buttons']['5'].get_height() * settings.Y_SCALE)), settings.MENU_ASSETS['buttons']['5'], settings)
 # ------ MAIN MENU ------
     
 settings.RUNNING = True
@@ -114,13 +119,12 @@ while settings.RUNNING:
                 NAME_INPUT = pygame_gui.UIManager((settings.SCREEN_WIDTH,settings.SCREEN_HEIGHT), './assets/menu/input/theme.json')
 
                 # ------ TEXT FIELD ------
+                TEXT_FIELD = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((settings.SCREEN_WIDTH/4 - math.ceil(37 * settings.X_SCALE), settings.SCREEN_HEIGHT / 2 - math.ceil(100 * settings.Y_SCALE)), (settings.SCREEN_WIDTH*9/16, math.ceil(50 * settings.Y_SCALE))), manager=NAME_INPUT, object_id="#name_input_field", initial_text=settings.PLAYER_NAME)
 
-                TEXT_FIELD = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((settings.SCREEN_WIDTH/2 - math.ceil(100 * settings.X_SCALE), settings.SCREEN_HEIGHT / 2 - math.ceil(55 * settings.Y_SCALE)), (settings.SCREEN_WIDTH*3/7, math.ceil(50 * settings.Y_SCALE))), manager=NAME_INPUT, object_id="#name_input_field", initial_text=settings.PLAYER_NAME)
-
-                start_button = Button(settings.SCREEN_WIDTH/4 - math.ceil(settings.MENU_ASSETS['buttons']['start'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 - math.ceil(settings.MENU_ASSETS['buttons']['start'].get_height() * settings.Y_SCALE)),settings.MENU_ASSETS['buttons']['start'], settings)
-                scores_button = Button(settings.SCREEN_WIDTH/4 - math.ceil(settings.MENU_ASSETS['buttons']['scores'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 + math.ceil(settings.MENU_ASSETS['buttons']['scores'].get_height() * settings.Y_SCALE) / 3),settings.MENU_ASSETS['buttons']['scores'], settings)
-                main_settings_button = Button(settings.SCREEN_WIDTH/4 - math.ceil(settings.MENU_ASSETS['buttons']['settings'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 + math.ceil(settings.MENU_ASSETS['buttons']['settings'].get_height() * settings.Y_SCALE) * 5 / 3),settings.MENU_ASSETS['buttons']['settings'], settings)
-                exit_button = Button(settings.SCREEN_WIDTH/4 - math.ceil(settings.MENU_ASSETS['buttons']['exit'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 + math.ceil(settings.MENU_ASSETS['buttons']['exit'].get_height() * settings.Y_SCALE) * 3),settings.MENU_ASSETS['buttons']['exit'], settings)
+                start_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['start'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 - math.ceil(settings.MENU_ASSETS['buttons']['start'].get_height() * settings.Y_SCALE)),settings.MENU_ASSETS['buttons']['start'], settings)
+                # scores_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['scores'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 + math.ceil(settings.MENU_ASSETS['buttons']['scores'].get_height() * settings.Y_SCALE) / 3),settings.MENU_ASSETS['buttons']['scores'], settings)
+                main_settings_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['settings'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 + math.ceil(settings.MENU_ASSETS['buttons']['settings'].get_height() * settings.Y_SCALE) /4),settings.MENU_ASSETS['buttons']['settings'], settings)
+                exit_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['exit'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 + math.ceil(settings.MENU_ASSETS['buttons']['exit'].get_height() * settings.Y_SCALE) * 3/2),settings.MENU_ASSETS['buttons']['exit'], settings)
 
                 resume_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['resume'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 - math.ceil(settings.MENU_ASSETS['buttons']['resume'].get_height() * settings.Y_SCALE)),settings.MENU_ASSETS['buttons']['resume'], settings)
                 settings_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['settings'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 + math.ceil(settings.MENU_ASSETS['buttons']['settings'].get_height() * settings.Y_SCALE)/4),settings.MENU_ASSETS['buttons']['settings'], settings)
@@ -139,6 +143,12 @@ while settings.RUNNING:
                 left_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT / 2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_height() * settings.Y_SCALE) * 9 / 4), settings.MENU_ASSETS['buttons']['button'], settings)
                 right_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT / 2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_height() * settings.Y_SCALE)), settings.MENU_ASSETS['buttons']['button'], settings)
                 jump_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT /2 + math.ceil(settings.MENU_ASSETS['buttons']['button'].get_height() * settings.Y_SCALE)/4), settings.MENU_ASSETS['buttons']['button'], settings)
+
+                level_1_button = Button(settings.SCREEN_WIDTH / 4 - math.ceil(settings.MENU_ASSETS['buttons']['1'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT * 2 / 3 - math.ceil(settings.MENU_ASSETS['buttons']['1'].get_height() * settings.Y_SCALE)), settings.MENU_ASSETS['buttons']['1'], settings)
+                level_2_button = Button(settings.SCREEN_WIDTH * 3/8 - math.ceil(settings.MENU_ASSETS['buttons']['2'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT * 2 / 3 - math.ceil(settings.MENU_ASSETS['buttons']['2'].get_height() * settings.Y_SCALE)), settings.MENU_ASSETS['buttons']['2'], settings)
+                level_3_button = Button(settings.SCREEN_WIDTH / 2- math.ceil(settings.MENU_ASSETS['buttons']['3'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT * 2 / 3 - math.ceil(settings.MENU_ASSETS['buttons']['3'].get_height() * settings.Y_SCALE)), settings.MENU_ASSETS['buttons']['3'], settings)
+                level_4_button = Button(settings.SCREEN_WIDTH * 5/8 - math.ceil(settings.MENU_ASSETS['buttons']['4'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT * 2 / 3 - math.ceil(settings.MENU_ASSETS['buttons']['4'].get_height() * settings.Y_SCALE)), settings.MENU_ASSETS['buttons']['4'], settings)
+                level_5_button = Button(settings.SCREEN_WIDTH * 3/4 - math.ceil(settings.MENU_ASSETS['buttons']['5'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT * 2 / 3 - math.ceil(settings.MENU_ASSETS['buttons']['5'].get_height() * settings.Y_SCALE)), settings.MENU_ASSETS['buttons']['5'], settings)
 
                 level = Level(settings)
 
@@ -177,12 +187,12 @@ while settings.RUNNING:
 
                 # ------ TEXT FIELD ------
 
-                TEXT_FIELD = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((settings.SCREEN_WIDTH/2 - math.ceil(100 * settings.X_SCALE), settings.SCREEN_HEIGHT / 2 - math.ceil(55 * settings.Y_SCALE)), (settings.SCREEN_WIDTH*3/7, math.ceil(50 * settings.Y_SCALE))), manager=NAME_INPUT, object_id="#name_input_field", initial_text=settings.PLAYER_NAME)
+                TEXT_FIELD = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((settings.SCREEN_WIDTH/4 - math.ceil(37 * settings.X_SCALE), settings.SCREEN_HEIGHT / 2 - math.ceil(100 * settings.Y_SCALE)), (settings.SCREEN_WIDTH*9/16, math.ceil(50 * settings.Y_SCALE))), manager=NAME_INPUT, object_id="#name_input_field", initial_text=settings.PLAYER_NAME)
 
                 start_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['start'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 - math.ceil(settings.MENU_ASSETS['buttons']['start'].get_height() * settings.Y_SCALE)),settings.MENU_ASSETS['buttons']['start'], settings)
-                scores_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['scores'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 + math.ceil(settings.MENU_ASSETS['buttons']['scores'].get_height() * settings.Y_SCALE) / 3),settings.MENU_ASSETS['buttons']['scores'], settings)
-                main_settings_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['settings'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 + math.ceil(settings.MENU_ASSETS['buttons']['settings'].get_height() * settings.Y_SCALE) * 5 / 3),settings.MENU_ASSETS['buttons']['settings'], settings)
-                exit_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['exit'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 + math.ceil(settings.MENU_ASSETS['buttons']['exit'].get_height() * settings.Y_SCALE) * 3),settings.MENU_ASSETS['buttons']['exit'], settings)
+                # scores_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['scores'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 + math.ceil(settings.MENU_ASSETS['buttons']['scores'].get_height() * settings.Y_SCALE) / 3),settings.MENU_ASSETS['buttons']['scores'], settings)
+                main_settings_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['settings'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 + math.ceil(settings.MENU_ASSETS['buttons']['settings'].get_height() * settings.Y_SCALE) / 4),settings.MENU_ASSETS['buttons']['settings'], settings)
+                exit_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['exit'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 + math.ceil(settings.MENU_ASSETS['buttons']['exit'].get_height() * settings.Y_SCALE) * 3/2),settings.MENU_ASSETS['buttons']['exit'], settings)
 
                 resume_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['resume'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 - math.ceil(settings.MENU_ASSETS['buttons']['resume'].get_height() * settings.Y_SCALE)),settings.MENU_ASSETS['buttons']['resume'], settings)
                 settings_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['settings'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT/2 + math.ceil(settings.MENU_ASSETS['buttons']['settings'].get_height() * settings.Y_SCALE)/4),settings.MENU_ASSETS['buttons']['settings'], settings)
@@ -202,6 +212,12 @@ while settings.RUNNING:
                 right_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT / 2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_height() * settings.Y_SCALE)), settings.MENU_ASSETS['buttons']['button'], settings)
                 jump_button = Button(settings.SCREEN_WIDTH/2 - math.ceil(settings.MENU_ASSETS['buttons']['button'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT /2 + math.ceil(settings.MENU_ASSETS['buttons']['button'].get_height() * settings.Y_SCALE)/4), settings.MENU_ASSETS['buttons']['button'], settings)
 
+                level_1_button = Button(settings.SCREEN_WIDTH / 4 - math.ceil(settings.MENU_ASSETS['buttons']['1'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT * 2 / 3 - math.ceil(settings.MENU_ASSETS['buttons']['1'].get_height() * settings.Y_SCALE)), settings.MENU_ASSETS['buttons']['1'], settings)
+                level_2_button = Button(settings.SCREEN_WIDTH * 3/8 - math.ceil(settings.MENU_ASSETS['buttons']['2'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT * 2 / 3 - math.ceil(settings.MENU_ASSETS['buttons']['2'].get_height() * settings.Y_SCALE)), settings.MENU_ASSETS['buttons']['2'], settings)
+                level_3_button = Button(settings.SCREEN_WIDTH / 2- math.ceil(settings.MENU_ASSETS['buttons']['3'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT * 2 / 3 - math.ceil(settings.MENU_ASSETS['buttons']['3'].get_height() * settings.Y_SCALE)), settings.MENU_ASSETS['buttons']['3'], settings)
+                level_4_button = Button(settings.SCREEN_WIDTH * 5/8 - math.ceil(settings.MENU_ASSETS['buttons']['4'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT * 2 / 3 - math.ceil(settings.MENU_ASSETS['buttons']['4'].get_height() * settings.Y_SCALE)), settings.MENU_ASSETS['buttons']['4'], settings)
+                level_5_button = Button(settings.SCREEN_WIDTH * 3/4 - math.ceil(settings.MENU_ASSETS['buttons']['5'].get_width() * settings.X_SCALE)/2, (settings.SCREEN_HEIGHT * 2 / 3 - math.ceil(settings.MENU_ASSETS['buttons']['5'].get_height() * settings.Y_SCALE)), settings.MENU_ASSETS['buttons']['5'], settings)
+
                 level = Level(settings)
 
             if settings.TUTORIAL == False:
@@ -211,7 +227,7 @@ while settings.RUNNING:
                         settings.write_tutorial_state({'tutorial' : True})
                     else:
                         settings.TUTORIAL_LEVEL += 1
-            if settings.MENU_STATE == "main":
+            if settings.MENU_STATE == "lvlsel":
                 if event.type == pygame_gui.UI_TEXT_ENTRY_CHANGED and event.ui_object_id == "#name_input_field" and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
                     settings.PLAYER_NAME = event.text
                 NAME_INPUT.process_events(event)
@@ -269,21 +285,18 @@ while settings.RUNNING:
         else:
             if (settings.MENU_STATE == 'main'):
                 # print("main menu", settings.GAME_PAUSED, settings.RUNNING)
-                NAME_INPUT.update(GAME_CLOCK.tick(60) / 300)
-                NAME_INPUT.draw_ui(SCREEN)
-
                 title_image = pygame.image.load('./assets/menu/title/title.png').convert_alpha()
                 title_image = pygame.transform.scale(title_image, (math.ceil(title_image.get_width() * settings.X_SCALE), math.ceil(title_image.get_height() * settings.Y_SCALE)))
 
                 SCREEN.blit(title_image, ((settings.SCREEN_WIDTH/2 - title_image.get_width()/2),(settings.SCREEN_HEIGHT/4 - title_image.get_height() * 3 / 4)))
                 
                 if start_button.draw(SCREEN) and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
-                    settings.GAME_PAUSED = False
-                    level = Level(settings)
-                    continue
+                    settings.PREVIOUS_MENU = "main"
+                    settings.MENU_STATE = "lvlsel"
+                
 
-                if scores_button.draw(SCREEN) and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
-                    pass
+                # if scores_button.draw(SCREEN) and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
+                #     pass
 
                 if main_settings_button.draw(SCREEN) and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
                     # settings.SFX['click'].play()
@@ -294,6 +307,42 @@ while settings.RUNNING:
 
                 if exit_button.draw(SCREEN) and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
                     settings.RUNNING = False
+                    continue
+            
+            if (settings.MENU_STATE == 'lvlsel'):
+
+                NAME_INPUT.update(GAME_CLOCK.tick(60) / 300)
+                NAME_INPUT.draw_ui(SCREEN)
+
+                title_image = pygame.image.load('./assets/menu/title/title.png').convert_alpha()
+                title_image = pygame.transform.scale(title_image, (math.ceil(title_image.get_width() * settings.X_SCALE), math.ceil(title_image.get_height() * settings.Y_SCALE)))
+
+                SCREEN.blit(title_image, ((settings.SCREEN_WIDTH/2 - title_image.get_width()/2),(settings.SCREEN_HEIGHT/4 - title_image.get_height() * 3 / 4)))
+
+                if level_1_button.draw(SCREEN) and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
+                    settings.GAME_PAUSED = False
+                    settings.CURRENT_LEVEL = 1
+                    level = Level(settings)
+                    continue
+                if level_2_button.draw(SCREEN) and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
+                    settings.GAME_PAUSED = False
+                    settings.CURRENT_LEVEL = 2
+                    level = Level(settings)
+                    continue
+                if level_3_button.draw(SCREEN) and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
+                    settings.GAME_PAUSED = False
+                    settings.CURRENT_LEVEL = 3
+                    level = Level(settings)
+                    continue
+                if level_4_button.draw(SCREEN) and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
+                    settings.GAME_PAUSED = False
+                    settings.CURRENT_LEVEL = 4
+                    level = Level(settings)
+                    continue
+                if level_5_button.draw(SCREEN) and (pygame.time.get_ticks() - settings.MENU_CD) >= 175:
+                    settings.GAME_PAUSED = False
+                    settings.CURRENT_LEVEL = 5
+                    level = Level(settings)
                     continue
 
             if (settings.MENU_STATE == 'pause'):
